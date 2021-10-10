@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="20e04bc96e06446791ca518d99b05c80" Name="Diagram1">
+        <EntityTypeShape EntityType="kukulkanModel.cat_estadosol" Width="1.5" PointX="0.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="kukulkanModel.categoriaelemento" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kukulkanModel.ofertas" Width="1.5" PointX="5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kukulkanModel.solicitudes" Width="1.5" PointX="2.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kukulkanModel.un_catele_ofe" Width="1.5" PointX="2.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kukulkanModel.usuarios" Width="1.5" PointX="5" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="kukulkanModel.EstadoSol_Solicitud" ManuallyRouted="false" />
+        <AssociationConnector Association="kukulkanModel.f_idCatEleUn" ManuallyRouted="false" />
+        <AssociationConnector Association="kukulkanModel.f_idOfeUn" ManuallyRouted="false" />
+        <AssociationConnector Association="kukulkanModel.idUsuario_Ofertas" ManuallyRouted="false" />
+        <AssociationConnector Association="kukulkanModel.IdUsuario_Solicitud" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="kukulkanModel.tiposusuario" Width="1.5" PointX="7.375" PointY="4.25" />
+        <AssociationConnector Association="kukulkanModel.tipoUser_User" />
+        <EntityTypeShape EntityType="kukulkanModel.estadouser" Width="1.5" PointX="7" PointY="0.625" />
+        <AssociationConnector Association="kukulkanModel.EstadoUser_Estado" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

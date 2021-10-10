@@ -1,0 +1,68 @@
+﻿@using YumKaax.Models
+@model UsuariosCLS
+@{
+    ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content">
+    <div class="container-fluid" >
+        <h3><span class="fa fa-user-circle"></span> Registro de Usuario</h3>
+        <br />
+        @using (Html.BeginForm("ConfirmarRegistro", "Registro", FormMethod.Post, new { @class = "form-control col-6", @id = "form-Registrar" }))
+        {
+            <div class="row">
+                <div class="col-8">
+                    <label>Usuario: </label>
+                    @Html.TextBoxFor(m => m.NickUsuarios, new { @class = "form-control", id = "NickUser" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-8">
+                    <label>Contraseña: </label>
+                    @Html.TextBoxFor(m => m.PassUsuarios, new { @class = "form-control", id = "PassUser" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-8">
+                    <label>Confirmar contraseña: </label>
+                    @Html.TextBox("Confirmar", "", new { @class = "form-control", id = "ConfirmarUser" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-8">
+                    <label>Correo: </label>
+                    @Html.TextBoxFor(m => m.CorreoUsuarios, new { @class = "form-control", id = "CorreoUser" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-8">
+                    <label>Tipo Usuario: </label>
+                    @Html.DropDownListFor(m => m.TipoUserUsuarios, ViewBag.ListTipo as SelectList, "...", new { @class = "form-control", id = "IdTipoUser" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-8">
+                    <label>Estado: </label>
+                    @Html.DropDownListFor(m => m.EstadoUsuarios, ViewBag.EdoUser as SelectList, "...", new { @class = "form-control", id = "IdEstadoUsuario" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-8">
+                    <label>Teléfono: </label>
+                    @Html.TextBoxFor(m => m.TelefonoUsuarios, new { @class = "form-control", id = "TelefonoUser", @oninput = "this.value = this.value.replace(/[^0-9]/g,'')", maxlenth = "10" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <button type="submit" class="btn btn-success"> Enviar</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

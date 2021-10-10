@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="kukulkanModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cat_estadosol">
+          <Key>
+            <PropertyRef Name="idCat_estado" />
+          </Key>
+          <Property Name="idCat_estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descat_estado" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categoriaelemento">
+          <Key>
+            <PropertyRef Name="idCategoriaElemento" />
+          </Key>
+          <Property Name="idCategoriaElemento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreCategoriaElemento" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ActivoCategoriaElemento" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="estadouser">
+          <Key>
+            <PropertyRef Name="idEstadoUser" />
+          </Key>
+          <Property Name="idEstadoUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomEstadoUser" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="ofertas">
+          <Key>
+            <PropertyRef Name="idOfertas" />
+          </Key>
+          <Property Name="idOfertas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TituloOfertas" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="EstadoOfertas" Type="tinyint" Nullable="false" />
+          <Property Name="DescripcionOfertas" Type="varchar" MaxLength="200" />
+          <Property Name="ImagenOfertas" Type="mediumblob" />
+          <Property Name="PrecioOfertas" Type="int" Nullable="false" />
+          <Property Name="ExistenciaOfertas" Type="int" Nullable="false" />
+          <Property Name="IdUsuarioOferta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="solicitudes">
+          <Key>
+            <PropertyRef Name="idSolicitud" />
+          </Key>
+          <Property Name="idSolicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TituloSolicitud" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="EstadoSolicitud" Type="int" Nullable="false" />
+          <Property Name="DescripcionSolicitud" Type="varchar" MaxLength="200" />
+          <Property Name="ImagenSolicitud" Type="mediumblob" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tiposusuario">
+          <Key>
+            <PropertyRef Name="idTiposUsuario" />
+          </Key>
+          <Property Name="idTiposUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescTiposUsuario" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="un_catele_ofe">
+          <Key>
+            <PropertyRef Name="idun_catele_ofecol" />
+          </Key>
+          <Property Name="idun_catele_ofecol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUn_CatEl" Type="int" Nullable="false" />
+          <Property Name="idUn_Ofe" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="idUsuarios" />
+          </Key>
+          <Property Name="idUsuarios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NickUsuarios" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PassUsuarios" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="CorreoUsuarios" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TipoUserUsuarios" Type="int" Nullable="false" />
+          <Property Name="BackPassUsuarios" Type="varchar" MaxLength="45" />
+          <Property Name="TelefonoUsuarios" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="EstadoUsuarios" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="EstadoSol_Solicitud">
+          <End Role="cat_estadosol" Type="Self.cat_estadosol" Multiplicity="1" />
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_estadosol">
+              <PropertyRef Name="idCat_estado" />
+            </Principal>
+            <Dependent Role="solicitudes">
+              <PropertyRef Name="EstadoSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EstadoUser_Estado">
+          <End Role="estadouser" Type="Self.estadouser" Multiplicity="1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estadouser">
+              <PropertyRef Name="idEstadoUser" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="EstadoUsuarios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="f_idCatEleUn">
+          <End Role="categoriaelemento" Type="Self.categoriaelemento" Multiplicity="1" />
+          <End Role="un_catele_ofe" Type="Self.un_catele_ofe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoriaelemento">
+              <PropertyRef Name="idCategoriaElemento" />
+            </Principal>
+            <Dependent Role="un_catele_ofe">
+              <PropertyRef Name="idUn_CatEl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="f_idOfeUn">
+          <End Role="ofertas" Type="Self.ofertas" Multiplicity="1" />
+          <End Role="un_catele_ofe" Type="Self.un_catele_ofe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ofertas">
+              <PropertyRef Name="idOfertas" />
+            </Principal>
+            <Dependent Role="un_catele_ofe">
+              <PropertyRef Name="idUn_Ofe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idUsuario_Ofertas">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="ofertas" Type="Self.ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuarios" />
+            </Principal>
+            <Dependent Role="ofertas">
+              <PropertyRef Name="IdUsuarioOferta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdUsuario_Solicitud">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuarios" />
+            </Principal>
+            <Dependent Role="solicitudes">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tipoUser_User">
+          <End Role="tiposusuario" Type="Self.tiposusuario" Multiplicity="1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposusuario">
+              <PropertyRef Name="idTiposUsuario" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="TipoUserUsuarios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="kukulkanModelStoreContainer">
+          <EntitySet Name="cat_estadosol" EntityType="Self.cat_estadosol" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="categoriaelemento" EntityType="Self.categoriaelemento" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="estadouser" EntityType="Self.estadouser" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="ofertas" EntityType="Self.ofertas" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="solicitudes" EntityType="Self.solicitudes" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="tiposusuario" EntityType="Self.tiposusuario" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="un_catele_ofe" EntityType="Self.un_catele_ofe" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="kukulkan" store:Type="Tables" />
+          <AssociationSet Name="EstadoSol_Solicitud" Association="Self.EstadoSol_Solicitud">
+            <End Role="cat_estadosol" EntitySet="cat_estadosol" />
+            <End Role="solicitudes" EntitySet="solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="EstadoUser_Estado" Association="Self.EstadoUser_Estado">
+            <End Role="estadouser" EntitySet="estadouser" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="f_idCatEleUn" Association="Self.f_idCatEleUn">
+            <End Role="categoriaelemento" EntitySet="categoriaelemento" />
+            <End Role="un_catele_ofe" EntitySet="un_catele_ofe" />
+          </AssociationSet>
+          <AssociationSet Name="f_idOfeUn" Association="Self.f_idOfeUn">
+            <End Role="ofertas" EntitySet="ofertas" />
+            <End Role="un_catele_ofe" EntitySet="un_catele_ofe" />
+          </AssociationSet>
+          <AssociationSet Name="idUsuario_Ofertas" Association="Self.idUsuario_Ofertas">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ofertas" EntitySet="ofertas" />
+          </AssociationSet>
+          <AssociationSet Name="IdUsuario_Solicitud" Association="Self.IdUsuario_Solicitud">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="solicitudes" EntitySet="solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="tipoUser_User" Association="Self.tipoUser_User">
+            <End Role="tiposusuario" EntitySet="tiposusuario" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="kukulkanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cat_estadosol">
+          <Key>
+            <PropertyRef Name="idCat_estado" />
+          </Key>
+          <Property Name="idCat_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descat_estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="solicitudes" Relationship="Self.EstadoSol_Solicitud" FromRole="cat_estadosol" ToRole="solicitudes" />
+        </EntityType>
+        <EntityType Name="categoriaelemento">
+          <Key>
+            <PropertyRef Name="idCategoriaElemento" />
+          </Key>
+          <Property Name="idCategoriaElemento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCategoriaElemento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ActivoCategoriaElemento" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="un_catele_ofe" Relationship="Self.f_idCatEleUn" FromRole="categoriaelemento" ToRole="un_catele_ofe" />
+        </EntityType>
+        <EntityType Name="ofertas">
+          <Key>
+            <PropertyRef Name="idOfertas" />
+          </Key>
+          <Property Name="idOfertas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TituloOfertas" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EstadoOfertas" Type="SByte" Nullable="false" />
+          <Property Name="DescripcionOfertas" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ImagenOfertas" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PrecioOfertas" Type="Int32" Nullable="false" />
+          <Property Name="ExistenciaOfertas" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuarioOferta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="un_catele_ofe" Relationship="Self.f_idOfeUn" FromRole="ofertas" ToRole="un_catele_ofe" />
+          <NavigationProperty Name="usuarios" Relationship="Self.idUsuario_Ofertas" FromRole="ofertas" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="solicitudes">
+          <Key>
+            <PropertyRef Name="idSolicitud" />
+          </Key>
+          <Property Name="idSolicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TituloSolicitud" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EstadoSolicitud" Type="Int32" Nullable="false" />
+          <Property Name="DescripcionSolicitud" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ImagenSolicitud" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cat_estadosol" Relationship="Self.EstadoSol_Solicitud" FromRole="solicitudes" ToRole="cat_estadosol" />
+          <NavigationProperty Name="usuarios" Relationship="Self.IdUsuario_Solicitud" FromRole="solicitudes" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="un_catele_ofe">
+          <Key>
+            <PropertyRef Name="idun_catele_ofecol" />
+          </Key>
+          <Property Name="idun_catele_ofecol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUn_CatEl" Type="Int32" Nullable="false" />
+          <Property Name="idUn_Ofe" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categoriaelemento" Relationship="Self.f_idCatEleUn" FromRole="un_catele_ofe" ToRole="categoriaelemento" />
+          <NavigationProperty Name="ofertas" Relationship="Self.f_idOfeUn" FromRole="un_catele_ofe" ToRole="ofertas" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="idUsuarios" />
+          </Key>
+          <Property Name="idUsuarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NickUsuarios" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PassUsuarios" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CorreoUsuarios" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TipoUserUsuarios" Type="Int32" Nullable="false" />
+          <Property Name="BackPassUsuarios" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoUsuarios" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EstadoUsuarios" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ofertas" Relationship="Self.idUsuario_Ofertas" FromRole="usuarios" ToRole="ofertas" />
+          <NavigationProperty Name="solicitudes" Relationship="Self.IdUsuario_Solicitud" FromRole="usuarios" ToRole="solicitudes" />
+          <NavigationProperty Name="tiposusuario" Relationship="kukulkanModel.tipoUser_User" FromRole="usuarios" ToRole="tiposusuario" />
+          <NavigationProperty Name="estadouser" Relationship="kukulkanModel.EstadoUser_Estado" FromRole="usuarios" ToRole="estadouser" />
+        </EntityType>
+        <Association Name="EstadoSol_Solicitud">
+          <End Role="cat_estadosol" Type="Self.cat_estadosol" Multiplicity="1" />
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_estadosol">
+              <PropertyRef Name="idCat_estado" />
+            </Principal>
+            <Dependent Role="solicitudes">
+              <PropertyRef Name="EstadoSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="f_idCatEleUn">
+          <End Role="categoriaelemento" Type="Self.categoriaelemento" Multiplicity="1" />
+          <End Role="un_catele_ofe" Type="Self.un_catele_ofe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoriaelemento">
+              <PropertyRef Name="idCategoriaElemento" />
+            </Principal>
+            <Dependent Role="un_catele_ofe">
+              <PropertyRef Name="idUn_CatEl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="f_idOfeUn">
+          <End Role="ofertas" Type="Self.ofertas" Multiplicity="1" />
+          <End Role="un_catele_ofe" Type="Self.un_catele_ofe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ofertas">
+              <PropertyRef Name="idOfertas" />
+            </Principal>
+            <Dependent Role="un_catele_ofe">
+              <PropertyRef Name="idUn_Ofe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idUsuario_Ofertas">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="ofertas" Type="Self.ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuarios" />
+            </Principal>
+            <Dependent Role="ofertas">
+              <PropertyRef Name="IdUsuarioOferta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdUsuario_Solicitud">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuarios" />
+            </Principal>
+            <Dependent Role="solicitudes">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="kukulkanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cat_estadosol" EntityType="Self.cat_estadosol" />
+          <EntitySet Name="categoriaelemento" EntityType="Self.categoriaelemento" />
+          <EntitySet Name="ofertas" EntityType="Self.ofertas" />
+          <EntitySet Name="solicitudes" EntityType="Self.solicitudes" />
+          <EntitySet Name="un_catele_ofe" EntityType="Self.un_catele_ofe" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+          <AssociationSet Name="EstadoSol_Solicitud" Association="Self.EstadoSol_Solicitud">
+            <End Role="cat_estadosol" EntitySet="cat_estadosol" />
+            <End Role="solicitudes" EntitySet="solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="f_idCatEleUn" Association="Self.f_idCatEleUn">
+            <End Role="categoriaelemento" EntitySet="categoriaelemento" />
+            <End Role="un_catele_ofe" EntitySet="un_catele_ofe" />
+          </AssociationSet>
+          <AssociationSet Name="f_idOfeUn" Association="Self.f_idOfeUn">
+            <End Role="ofertas" EntitySet="ofertas" />
+            <End Role="un_catele_ofe" EntitySet="un_catele_ofe" />
+          </AssociationSet>
+          <AssociationSet Name="idUsuario_Ofertas" Association="Self.idUsuario_Ofertas">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ofertas" EntitySet="ofertas" />
+          </AssociationSet>
+          <AssociationSet Name="IdUsuario_Solicitud" Association="Self.IdUsuario_Solicitud">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="solicitudes" EntitySet="solicitudes" />
+          </AssociationSet>
+          <EntitySet Name="tiposusuario" EntityType="kukulkanModel.tiposusuario" />
+          <AssociationSet Name="tipoUser_User" Association="kukulkanModel.tipoUser_User">
+            <End Role="tiposusuario" EntitySet="tiposusuario" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <EntitySet Name="estadouser" EntityType="kukulkanModel.estadouser" />
+          <AssociationSet Name="EstadoUser_Estado" Association="kukulkanModel.EstadoUser_Estado">
+            <End Role="estadouser" EntitySet="estadouser" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tiposusuario">
+          <Key>
+            <PropertyRef Name="idTiposUsuario" />
+          </Key>
+          <Property Name="idTiposUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescTiposUsuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.tipoUser_User" FromRole="tiposusuario" ToRole="usuarios" />
+        </EntityType>
+        <Association Name="tipoUser_User">
+          <End Type="kukulkanModel.tiposusuario" Role="tiposusuario" Multiplicity="1" />
+          <End Type="kukulkanModel.usuarios" Role="usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposusuario">
+              <PropertyRef Name="idTiposUsuario" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="TipoUserUsuarios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="estadouser">
+          <Key>
+            <PropertyRef Name="idEstadoUser" />
+          </Key>
+          <Property Name="idEstadoUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomEstadoUser" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.EstadoUser_Estado" FromRole="estadouser" ToRole="usuarios" />
+        </EntityType>
+        <Association Name="EstadoUser_Estado">
+          <End Type="kukulkanModel.estadouser" Role="estadouser" Multiplicity="1" />
+          <End Type="kukulkanModel.usuarios" Role="usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estadouser">
+              <PropertyRef Name="idEstadoUser" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="EstadoUsuarios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="kukulkanModelStoreContainer" CdmEntityContainer="kukulkanEntities">
+          <EntitySetMapping Name="cat_estadosol">
+            <EntityTypeMapping TypeName="kukulkanModel.cat_estadosol">
+              <MappingFragment StoreEntitySet="cat_estadosol">
+                <ScalarProperty Name="idCat_estado" ColumnName="idCat_estado" />
+                <ScalarProperty Name="Descat_estado" ColumnName="Descat_estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categoriaelemento">
+            <EntityTypeMapping TypeName="kukulkanModel.categoriaelemento">
+              <MappingFragment StoreEntitySet="categoriaelemento">
+                <ScalarProperty Name="idCategoriaElemento" ColumnName="idCategoriaElemento" />
+                <ScalarProperty Name="NombreCategoriaElemento" ColumnName="NombreCategoriaElemento" />
+                <ScalarProperty Name="ActivoCategoriaElemento" ColumnName="ActivoCategoriaElemento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ofertas">
+            <EntityTypeMapping TypeName="kukulkanModel.ofertas">
+              <MappingFragment StoreEntitySet="ofertas">
+                <ScalarProperty Name="idOfertas" ColumnName="idOfertas" />
+                <ScalarProperty Name="TituloOfertas" ColumnName="TituloOfertas" />
+                <ScalarProperty Name="EstadoOfertas" ColumnName="EstadoOfertas" />
+                <ScalarProperty Name="DescripcionOfertas" ColumnName="DescripcionOfertas" />
+                <ScalarProperty Name="ImagenOfertas" ColumnName="ImagenOfertas" />
+                <ScalarProperty Name="PrecioOfertas" ColumnName="PrecioOfertas" />
+                <ScalarProperty Name="ExistenciaOfertas" ColumnName="ExistenciaOfertas" />
+                <ScalarProperty Name="IdUsuarioOferta" ColumnName="IdUsuarioOferta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="solicitudes">
+            <EntityTypeMapping TypeName="kukulkanModel.solicitudes">
+              <MappingFragment StoreEntitySet="solicitudes">
+                <ScalarProperty Name="idSolicitud" ColumnName="idSolicitud" />
+                <ScalarProperty Name="TituloSolicitud" ColumnName="TituloSolicitud" />
+                <ScalarProperty Name="EstadoSolicitud" ColumnName="EstadoSolicitud" />
+                <ScalarProperty Name="DescripcionSolicitud" ColumnName="DescripcionSolicitud" />
+                <ScalarProperty Name="ImagenSolicitud" ColumnName="ImagenSolicitud" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="un_catele_ofe">
+            <EntityTypeMapping TypeName="kukulkanModel.un_catele_ofe">
+              <MappingFragment StoreEntitySet="un_catele_ofe">
+                <ScalarProperty Name="idun_catele_ofecol" ColumnName="idun_catele_ofecol" />
+                <ScalarProperty Name="idUn_CatEl" ColumnName="idUn_CatEl" />
+                <ScalarProperty Name="idUn_Ofe" ColumnName="idUn_Ofe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="kukulkanModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="idUsuarios" ColumnName="idUsuarios" />
+                <ScalarProperty Name="NickUsuarios" ColumnName="NickUsuarios" />
+                <ScalarProperty Name="PassUsuarios" ColumnName="PassUsuarios" />
+                <ScalarProperty Name="CorreoUsuarios" ColumnName="CorreoUsuarios" />
+                <ScalarProperty Name="TipoUserUsuarios" ColumnName="TipoUserUsuarios" />
+                <ScalarProperty Name="BackPassUsuarios" ColumnName="BackPassUsuarios" />
+                <ScalarProperty Name="TelefonoUsuarios" ColumnName="TelefonoUsuarios" />
+                <ScalarProperty Name="EstadoUsuarios" ColumnName="EstadoUsuarios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiposusuario">
+            <EntityTypeMapping TypeName="kukulkanModel.tiposusuario">
+              <MappingFragment StoreEntitySet="tiposusuario">
+                <ScalarProperty Name="DescTiposUsuario" ColumnName="DescTiposUsuario" />
+                <ScalarProperty Name="idTiposUsuario" ColumnName="idTiposUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estadouser">
+            <EntityTypeMapping TypeName="kukulkanModel.estadouser">
+              <MappingFragment StoreEntitySet="estadouser">
+                <ScalarProperty Name="NomEstadoUser" ColumnName="NomEstadoUser" />
+                <ScalarProperty Name="idEstadoUser" ColumnName="idEstadoUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
