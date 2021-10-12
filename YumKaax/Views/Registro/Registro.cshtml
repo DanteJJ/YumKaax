@@ -1,5 +1,6 @@
 ﻿@using YumKaax.Models
 @model UsuariosCLS
+
 @{
     ViewBag.Title = "Registro";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,56 +14,151 @@
             <div class="row">
                 <div class="col-8">
                     <label>Usuario: </label>
-                    @Html.TextBoxFor(m => m.NickUsuarios, new { @class = "form-control", id = "NickUser" })
+                    @Html.TextBoxFor(m => m.NickUsuarios, new { @class = "form-control", id = "NickUser", onchange = "checkNick()" })
                 </div>
+                <label style="color:red; display:none" id="LabelMessage"></label>
             </div>
             <br />
             <div class="row">
                 <div class="col-8">
                     <label>Contraseña: </label>
-                    @Html.TextBoxFor(m => m.PassUsuarios, new { @class = "form-control", id = "PassUser" })
+                    @Html.TextBoxFor(m => m.PassUsuarios, new { @class = "form-control", id = "PassUser", onchage = "limpiar('contraUno')" })
                 </div>
+                <label style="color:red; display:none" id="contraUno"></label>
             </div>
             <br />
             <div class="row">
                 <div class="col-8">
                     <label>Confirmar contraseña: </label>
-                    @Html.TextBox("Confirmar", "", new { @class = "form-control", id = "ConfirmarUser" })
+                    @Html.TextBox("Confirmar", "", new { @class = "form-control", id = "ConfirmarPass", onchange = "limpiar('ContraConf')" })
                 </div>
+                <label style="color:red; display:none" id="ContraConf"></label>
             </div>
             <br />
             <div class="row">
                 <div class="col-8">
                     <label>Correo: </label>
-                    @Html.TextBoxFor(m => m.CorreoUsuarios, new { @class = "form-control", id = "CorreoUser" })
+                    @Html.TextBoxFor(m => m.CorreoUsuarios, new { @class = "form-control", id = "CorreoUser", onchange = "limpiar('CorrConf')" })
                 </div>
+                <label style="color:red; display:none" id="CorrConf"></label>
             </div>
             <br />
             <div class="row">
                 <div class="col-8">
                     <label>Tipo Usuario: </label>
-                    @Html.DropDownListFor(m => m.TipoUserUsuarios, ViewBag.ListTipo as SelectList, "...", new { @class = "form-control", id = "IdTipoUser" })
+                    @Html.DropDownListFor(m => m.TipoUserUsuarios, ViewBag.ListTipo as SelectList, "...", new { @class = "form-control", id = "IdTipoUser", onchange= "limpiar('tipUser')" })
                 </div>
+                <label style="color:red; display:none" id="tipUser"></label>
             </div>
             <br />
             <div class="row">
                 <div class="col-8">
                     <label>Estado: </label>
-                    @Html.DropDownListFor(m => m.EstadoUsuarios, ViewBag.EdoUser as SelectList, "...", new { @class = "form-control", id = "IdEstadoUsuario" })
+                    @Html.DropDownListFor(m => m.EstadoUsuarios, ViewBag.EdoUser as SelectList, "...", new { @class = "form-control", id = "IdEstadoUsuario", onchange = "limpiar('edoUser')" })
                 </div>
+                <label style="color:red; display:none" id="edoUser"></label>
             </div>
             <br />
             <div class="row">
                 <div class="col-8">
                     <label>Teléfono: </label>
-                    @Html.TextBoxFor(m => m.TelefonoUsuarios, new { @class = "form-control", id = "TelefonoUser", @oninput = "this.value = this.value.replace(/[^0-9]/g,'')", maxlenth = "10" })
+                    @Html.TextBoxFor(m => m.TelefonoUsuarios, new { @class = "form-control", id = "TelefonoUser", @oninput = "this.value = this.value.replace(/[^0-9]/g,'')", maxlenth = "10", onchange = "limpiar('telUser')" })
                 </div>
+                <label style="color:red; display:none" id="telUser"></label>
             </div>
+            <br />
             <div class="row">
                 <div class="col-2">
-                    <button type="submit" class="btn btn-success"> Enviar</button>
+                    <a class="btn btn-success" onclick="ModalConfirmar()"> Enviar</a>
                 </div>
             </div>
         }
     </div>
 </div>
+
+<script type="text/javascript">
+    function ModalConfirmar() {
+        var user = document.getElementById("NickUser").value;
+        var pass = document.getElementById("PassUser").value;
+        var copa = document.getElementById("ConfirmarPass").value;
+        var corr = document.getElementById("CorreoUser").value;
+        var tipo = document.getElementById("IdTipoUser").value;
+        var edo = document.getElementById("IdEstadoUsuario").value;
+        var tele = document.getElementById("TelefonoUser").value;
+
+        if (user.trim() == "" ) {
+            document.getElementById("LabelMessage").innerHTML = "Campo no debe estar vacio";
+            document.getElementById("LabelMessage").style.display = '';
+            document.getElementById("NickUser").focus();
+        }
+        else if (pass.trim() == "") { 
+            document.getElementById("contraUno").innerHTML = "Campo no debe estar vacio";
+            document.getElementById("contraUno").style.display = '';
+            document.getElementById("PassUser").focus();
+        }
+        else if (copa.trim() == "") {
+            document.getElementById("ContraConf").innerHTML = "Campo no debe estar vacio";
+            document.getElementById("ContraConf").style.display = '';
+            document.getElementById("ConfirmarPass").focus();
+        }
+        else if (corr.trim() == "") {
+            document.getElementById("CorrConf").innerHTML = "Campo no debe estar vacio";
+            document.getElementById("CorrConf").style.display = '';
+            document.getElementById("CorreoUser").focus();
+        }
+        else if (tipo == 0) {
+            document.getElementById("tipUser").innerHTML = "Seleccione el tipo de perfil";
+            document.getElementById("tipUser").style.display = '';
+            document.getElementById("IdTipoUser").focus();
+        }
+        else if (edo == 0) {
+            document.getElementById("edoUser").innerHTML = "Seleccione un estado";
+            document.getElementById("edoUser").style.display = '';
+            document.getElementById("IdEstadoUsuario").focus();
+        }
+        else if (tele == "") {
+            document.getElementById("telUser").innerHTML = "Campo no debe estar vacio";
+            document.getElementById("telUser").style.display = '';
+            document.getElementById("TelefonoUser").focus();
+        }
+        else if (tele.length != 10) {
+            document.getElementById("telUser").innerHTML = "El telefono debe contener al menos 10 digitos";
+            ocument.getElementById("telUser").style.display = '';
+            document.getElementById("TelefonoUser").focus();
+        } else {
+            var form = document.getElementById("form-Registrar");
+            form.submit();
+        }
+    }
+
+    function checkNick() {
+        var nick = document.getElementById("NickUser").value;
+        document.getElementById("LabelMessage").style.display = 'none';
+        $.ajax({
+            url: "/Registro/CheckNick",
+            type: "post",
+            data: { 'nick': nick },
+            success: function (Data) {
+                if (Data == 1) {
+                    console.log(Data)
+                    document.getElementById("NickUser").focus();
+                    document.getElementById("LabelMessage").style.display = '';
+                    document.getElementById("LabelMessage").innerHTML = "El usuario " + nick + " ya se encuentra en uso.";
+                }
+            }, error: function (xhr, error, status) {
+                console.log('Error: ' + error + ' status: ' + status + ' ' + xhr.status + ' ' + xhr.statusText);
+            }
+        });
+    }
+
+    function limpiar(idLimpiar) {
+        document.getElementById("LabelMessage").style.display = 'none';
+        document.getElementById("contraUno").style.display = 'none';
+        document.getElementById("ContraConf").style.display = 'none';
+        document.getElementById("CorrConf").style.display = 'none';
+        document.getElementById("tipUser").style.display = 'none';
+        document.getElementById("edoUser").style.display = 'none';
+        document.getElementById("telUser").style.display = 'none';
+    }
+
+</script>

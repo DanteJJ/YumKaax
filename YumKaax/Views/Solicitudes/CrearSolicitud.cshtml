@@ -8,28 +8,33 @@
 
 <div class="container">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-6">
-                <label class="form-control" for="titulo">Título</label>
-                @Html.TextBoxFor(m => m.TituloSolicitud, new { @class = "form-control", @id = "titulo", @required = "true" })
-
-                @Html.ValidationMessage("titulo", null, new { @class = "text-damger" })
-            </div>
-        </div>
+        <h3><span class="fa fa-book"></span> Crear solicitud</h3>
         <br />
-        <div class="row">
-            <div class="col-6">
-                <label class="form-control" for="Descripcion">Descripción</label>
-                @Html.TextAreaFor(m => m.DescripcionSolicitud, new { @class = "form-control", @id = "Descripcion" })
+        @using (Html.BeginForm("CrearSolicitud", "Solicitudes", FormMethod.Post, new { @class="form-control", @id="form-solicitudCrear" }))
+        {
+            <div class="row">
+                <div class="col-6">
+                    <label>Título</label>
+                    @Html.TextBoxFor(m => m.TituloSolicitud, new { @class = "form-control", @id = "titulo", @required = "true" })
+                </div>
             </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-6">
-                <label class="form-control" for="Descripcion">Imagen</label>
-                @Html.TextBoxFor(m => m.Imagen, new { @class = "form-control", type = "file", accept = ".png, .jpg, .svg", style = "background-color:white;color:black;" })
+            <br />
+            <div class="row">
+                <div class="col-6">
+                    <label>Descripción</label>
+                    @Html.TextAreaFor(m => m.DescripcionSolicitud, new { @class = "form-control", @id = "Descripcion" })
+                </div>
             </div>
-        </div>
+            <br />
+            <div class="row">
+                <div class="col-6">
+                    <label>Imagen</label>
+                    @Html.TextBoxFor(m => m.Imagen, new { @class = "form-control", type = "file", accept = ".png, .jpg, .svg", style = "background-color:white;color:black;" })
+                </div>
+            </div>
+            <br />
+            <button class="btn btn-success">Enviar</button>
+        }
     </div>
 </div>
 

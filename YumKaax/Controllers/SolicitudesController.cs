@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using YumKaax.Models;
 
 namespace YumKaax.Controllers
 {
@@ -12,6 +13,12 @@ namespace YumKaax.Controllers
         public ActionResult CrearSolicitud()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult CrearSolicitud(SolicitudCLS solicitud)
+        {
+
+            return RedirectToAction("CrearSolicitud");
         }
     }
 }
