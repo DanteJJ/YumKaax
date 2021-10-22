@@ -14,14 +14,21 @@ namespace YumKaax.Models
     
     public partial class solicitudes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public solicitudes()
+        {
+            this.images_solicitud = new HashSet<images_solicitud>();
+        }
+    
         public int idSolicitud { get; set; }
         public string TituloSolicitud { get; set; }
         public int EstadoSolicitud { get; set; }
         public string DescripcionSolicitud { get; set; }
-        public byte[] ImagenSolicitud { get; set; }
         public int idUsuario { get; set; }
     
         public virtual cat_estadosol cat_estadosol { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<images_solicitud> images_solicitud { get; set; }
         public virtual usuarios usuarios { get; set; }
     }
 }

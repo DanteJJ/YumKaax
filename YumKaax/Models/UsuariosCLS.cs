@@ -20,4 +20,12 @@ namespace YumKaax.Models
         public string TelefonoUsuarios { get; set; }
         public int EstadoUsuarios { get; set; }
     }
+
+    public class LoginCLS
+    {
+        [Required]
+        public string UserName { get; set; }
+        [Required]
+        public string Pass { get; set; }
+    }
 }

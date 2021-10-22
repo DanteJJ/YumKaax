@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\AnullzBardo\source\repos\YumKaax\YumKaax\Models\KukulkanDB.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\Ideapad 5\source\repos\DanteJJ\YumKaax\YumKaax\Models\KukulkanDB.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

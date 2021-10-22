@@ -20,9 +20,16 @@
             </div>
             <br />
             <div class="row">
-                <div class="col-8">
+                <div class="col-12">
                     <label>Contraseña: </label>
-                    @Html.TextBoxFor(m => m.PassUsuarios, new { @class = "form-control", id = "PassUser", onchage = "limpiar('contraUno')" })
+                    <div class="row">
+                        <div class="col-3 ">
+                            @Html.PasswordFor(m => m.PassUsuarios, new { @class = "form-control", id = "PassUser", onchage = "limpiar('contraUno')" })
+                        </div>
+                        <div class="col-2">
+                            <a class="btn btn-success btn-sm" onclick="ShowPass()" title="Mostrar Contraseña"><span class="fa fa-eye"></span></a>
+                        </div>
+                    </div>
                 </div>
                 <label style="color:red; display:none" id="contraUno"></label>
             </div>
@@ -30,7 +37,7 @@
             <div class="row">
                 <div class="col-8">
                     <label>Confirmar contraseña: </label>
-                    @Html.TextBox("Confirmar", "", new { @class = "form-control", id = "ConfirmarPass", onchange = "limpiar('ContraConf')" })
+                    @Html.Password("Confirmar", "", new { @class = "form-control", id = "ConfirmarPass", onchange = "limpiar('ContraConf')" })
                 </div>
                 <label style="color:red; display:none" id="ContraConf"></label>
             </div>
@@ -161,4 +168,12 @@
         document.getElementById("telUser").style.display = 'none';
     }
 
+    function ShowPass() {
+        var item = document.getElementById("PassUser");
+        if (item.type == "password") {
+            item.type = "text";
+        } else {
+            item.type = "password";
+        }
+    }
 </script>

@@ -17,6 +17,7 @@ namespace YumKaax.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ofertas()
         {
+            this.images_ofertas = new HashSet<images_ofertas>();
             this.un_catele_ofe = new HashSet<un_catele_ofe>();
         }
     
@@ -29,6 +30,8 @@ namespace YumKaax.Models
         public int ExistenciaOfertas { get; set; }
         public int IdUsuarioOferta { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<images_ofertas> images_ofertas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<un_catele_ofe> un_catele_ofe { get; set; }
         public virtual usuarios usuarios { get; set; }

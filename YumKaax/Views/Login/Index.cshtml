@@ -1,17 +1,55 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "Ingresar";
 }
 
 <!DOCTYPE html>
-
+@using YumKaax.Models
+@model LoginCLS
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    
 </head>
 <body>
-    <div> 
+    <div class="row"> 
+        <div class="w-100">
+            <br />
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header d-flex justify-content-center">
+                    <img src="~/Images/yumkaaxLogo.jpg" height="150"/>
+                </div>
+                <div class="card-body">
+                   @using (Html.BeginForm("Entrar","Login",FormMethod.Post))
+                   {
+                       <div class="col-12 text-center">
+                           <p>Accesa a tu cuenta</p>
+                       </div>
+      
+                       <form>
+                           @Html.AntiForgeryToken()
+                           <div class="row">
+                               <label>Usuario</label>
+                               @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @required = "true" })
+                           </div>
+                           <br />
+                           <div class="row">
+                               <label>Contraseña</label>
+                               @Html.PasswordFor(m => m.Pass, new { @class = "form-control", @required = "true" })
+                           </div>
+                           <br />
+                           <button class="btn btn-success ">Ingresar</button>
+                       </form>
+           
+                   }
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

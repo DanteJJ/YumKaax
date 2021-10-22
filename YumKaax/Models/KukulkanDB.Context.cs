@@ -27,11 +27,13 @@ namespace YumKaax.Models
     
         public virtual DbSet<cat_estadosol> cat_estadosol { get; set; }
         public virtual DbSet<categoriaelemento> categoriaelemento { get; set; }
+        public virtual DbSet<estadouser> estadouser { get; set; }
+        public virtual DbSet<images_ofertas> images_ofertas { get; set; }
+        public virtual DbSet<images_solicitud> images_solicitud { get; set; }
         public virtual DbSet<ofertas> ofertas { get; set; }
         public virtual DbSet<solicitudes> solicitudes { get; set; }
+        public virtual DbSet<tiposusuario> tiposusuario { get; set; }
         public virtual DbSet<un_catele_ofe> un_catele_ofe { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
-        public virtual DbSet<tiposusuario> tiposusuario { get; set; }
-        public virtual DbSet<estadouser> estadouser { get; set; }
     }
 }

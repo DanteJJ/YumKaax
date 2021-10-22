@@ -17,6 +17,7 @@ namespace YumKaax.Controllers
         }
         
         public kukulkanEntities db;
+
         List<tiposusuario> GetTiposusuariosList()
         {
             List<tiposusuario> tiposusuarios = new List<tiposusuario>();
@@ -24,7 +25,6 @@ namespace YumKaax.Controllers
                              select tu).ToList();
             return tiposusuarios;
         }
-
         List<estadouser> GetEstadousersList()
         {
             List<estadouser> estadousers = new List<estadouser>();

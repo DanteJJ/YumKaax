@@ -27,6 +27,22 @@
           <Property Name="idEstadoUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NomEstadoUser" Type="varchar" MaxLength="45" />
         </EntityType>
+        <EntityType Name="images_ofertas">
+          <Key>
+            <PropertyRef Name="IdImages_Ofertas" />
+          </Key>
+          <Property Name="IdImages_Ofertas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Oferta" Type="int" Nullable="false" />
+          <Property Name="ImagenImg_Oft" Type="mediumblob" />
+        </EntityType>
+        <EntityType Name="images_solicitud">
+          <Key>
+            <PropertyRef Name="idImages_Solicitud" />
+          </Key>
+          <Property Name="idImages_Solicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSol_Img_Sol" Type="int" Nullable="false" />
+          <Property Name="ImagenImg_Sol" Type="mediumblob" />
+        </EntityType>
         <EntityType Name="ofertas">
           <Key>
             <PropertyRef Name="idOfertas" />
@@ -48,7 +64,6 @@
           <Property Name="TituloSolicitud" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="EstadoSolicitud" Type="int" Nullable="false" />
           <Property Name="DescripcionSolicitud" Type="varchar" MaxLength="200" />
-          <Property Name="ImagenSolicitud" Type="mediumblob" />
           <Property Name="idUsuario" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tiposusuario">
@@ -72,7 +87,7 @@
           </Key>
           <Property Name="idUsuarios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NickUsuarios" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="PassUsuarios" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="PassUsuarios" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="CorreoUsuarios" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="TipoUserUsuarios" Type="int" Nullable="false" />
           <Property Name="BackPassUsuarios" Type="varchar" MaxLength="45" />
@@ -127,6 +142,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fkImagesSol">
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="1" />
+          <End Role="images_solicitud" Type="Self.images_solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitudes">
+              <PropertyRef Name="idSolicitud" />
+            </Principal>
+            <Dependent Role="images_solicitud">
+              <PropertyRef Name="idSol_Img_Sol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkImgOfer">
+          <End Role="ofertas" Type="Self.ofertas" Multiplicity="1" />
+          <End Role="images_ofertas" Type="Self.images_ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ofertas">
+              <PropertyRef Name="idOfertas" />
+            </Principal>
+            <Dependent Role="images_ofertas">
+              <PropertyRef Name="Id_Oferta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="idUsuario_Ofertas">
           <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
           <End Role="ofertas" Type="Self.ofertas" Multiplicity="*" />
@@ -167,6 +206,8 @@
           <EntitySet Name="cat_estadosol" EntityType="Self.cat_estadosol" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="categoriaelemento" EntityType="Self.categoriaelemento" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="estadouser" EntityType="Self.estadouser" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="images_ofertas" EntityType="Self.images_ofertas" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="images_solicitud" EntityType="Self.images_solicitud" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="ofertas" EntityType="Self.ofertas" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="solicitudes" EntityType="Self.solicitudes" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="tiposusuario" EntityType="Self.tiposusuario" Schema="kukulkan" store:Type="Tables" />
@@ -187,6 +228,14 @@
           <AssociationSet Name="f_idOfeUn" Association="Self.f_idOfeUn">
             <End Role="ofertas" EntitySet="ofertas" />
             <End Role="un_catele_ofe" EntitySet="un_catele_ofe" />
+          </AssociationSet>
+          <AssociationSet Name="fkImagesSol" Association="Self.fkImagesSol">
+            <End Role="solicitudes" EntitySet="solicitudes" />
+            <End Role="images_solicitud" EntitySet="images_solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="fkImgOfer" Association="Self.fkImgOfer">
+            <End Role="ofertas" EntitySet="ofertas" />
+            <End Role="images_ofertas" EntitySet="images_ofertas" />
           </AssociationSet>
           <AssociationSet Name="idUsuario_Ofertas" Association="Self.idUsuario_Ofertas">
             <End Role="usuarios" EntitySet="usuarios" />
@@ -222,6 +271,32 @@
           <Property Name="ActivoCategoriaElemento" Type="SByte" Nullable="false" />
           <NavigationProperty Name="un_catele_ofe" Relationship="Self.f_idCatEleUn" FromRole="categoriaelemento" ToRole="un_catele_ofe" />
         </EntityType>
+        <EntityType Name="estadouser">
+          <Key>
+            <PropertyRef Name="idEstadoUser" />
+          </Key>
+          <Property Name="idEstadoUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomEstadoUser" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.EstadoUser_Estado" FromRole="estadouser" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="images_ofertas">
+          <Key>
+            <PropertyRef Name="IdImages_Ofertas" />
+          </Key>
+          <Property Name="IdImages_Ofertas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Oferta" Type="Int32" Nullable="false" />
+          <Property Name="ImagenImg_Oft" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="ofertas" Relationship="Self.fkImgOfer" FromRole="images_ofertas" ToRole="ofertas" />
+        </EntityType>
+        <EntityType Name="images_solicitud">
+          <Key>
+            <PropertyRef Name="idImages_Solicitud" />
+          </Key>
+          <Property Name="idImages_Solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSol_Img_Sol" Type="Int32" Nullable="false" />
+          <Property Name="ImagenImg_Sol" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="solicitudes" Relationship="Self.fkImagesSol" FromRole="images_solicitud" ToRole="solicitudes" />
+        </EntityType>
         <EntityType Name="ofertas">
           <Key>
             <PropertyRef Name="idOfertas" />
@@ -234,8 +309,9 @@
           <Property Name="PrecioOfertas" Type="Int32" Nullable="false" />
           <Property Name="ExistenciaOfertas" Type="Int32" Nullable="false" />
           <Property Name="IdUsuarioOferta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="images_ofertas" Relationship="Self.fkImgOfer" FromRole="ofertas" ToRole="images_ofertas" />
           <NavigationProperty Name="un_catele_ofe" Relationship="Self.f_idOfeUn" FromRole="ofertas" ToRole="un_catele_ofe" />
-          <NavigationProperty Name="usuarios" Relationship="Self.idUsuario_Ofertas" FromRole="ofertas" ToRole="usuarios" />
+          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.idUsuario_Ofertas" FromRole="ofertas" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="solicitudes">
           <Key>
@@ -245,10 +321,18 @@
           <Property Name="TituloSolicitud" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EstadoSolicitud" Type="Int32" Nullable="false" />
           <Property Name="DescripcionSolicitud" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ImagenSolicitud" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="idUsuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="cat_estadosol" Relationship="Self.EstadoSol_Solicitud" FromRole="solicitudes" ToRole="cat_estadosol" />
-          <NavigationProperty Name="usuarios" Relationship="Self.IdUsuario_Solicitud" FromRole="solicitudes" ToRole="usuarios" />
+          <NavigationProperty Name="images_solicitud" Relationship="Self.fkImagesSol" FromRole="solicitudes" ToRole="images_solicitud" />
+          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.IdUsuario_Solicitud" FromRole="solicitudes" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="tiposusuario">
+          <Key>
+            <PropertyRef Name="idTiposUsuario" />
+          </Key>
+          <Property Name="idTiposUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescTiposUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.tipoUser_User" FromRole="tiposusuario" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="un_catele_ofe">
           <Key>
@@ -259,23 +343,6 @@
           <Property Name="idUn_Ofe" Type="Int32" Nullable="false" />
           <NavigationProperty Name="categoriaelemento" Relationship="Self.f_idCatEleUn" FromRole="un_catele_ofe" ToRole="categoriaelemento" />
           <NavigationProperty Name="ofertas" Relationship="Self.f_idOfeUn" FromRole="un_catele_ofe" ToRole="ofertas" />
-        </EntityType>
-        <EntityType Name="usuarios">
-          <Key>
-            <PropertyRef Name="idUsuarios" />
-          </Key>
-          <Property Name="idUsuarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NickUsuarios" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PassUsuarios" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CorreoUsuarios" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TipoUserUsuarios" Type="Int32" Nullable="false" />
-          <Property Name="BackPassUsuarios" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="TelefonoUsuarios" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EstadoUsuarios" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ofertas" Relationship="Self.idUsuario_Ofertas" FromRole="usuarios" ToRole="ofertas" />
-          <NavigationProperty Name="solicitudes" Relationship="Self.IdUsuario_Solicitud" FromRole="usuarios" ToRole="solicitudes" />
-          <NavigationProperty Name="tiposusuario" Relationship="kukulkanModel.tipoUser_User" FromRole="usuarios" ToRole="tiposusuario" />
-          <NavigationProperty Name="estadouser" Relationship="kukulkanModel.EstadoUser_Estado" FromRole="usuarios" ToRole="estadouser" />
         </EntityType>
         <Association Name="EstadoSol_Solicitud">
           <End Role="cat_estadosol" Type="Self.cat_estadosol" Multiplicity="1" />
@@ -301,6 +368,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fkImgOfer">
+          <End Role="ofertas" Type="Self.ofertas" Multiplicity="1" />
+          <End Role="images_ofertas" Type="Self.images_ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ofertas">
+              <PropertyRef Name="idOfertas" />
+            </Principal>
+            <Dependent Role="images_ofertas">
+              <PropertyRef Name="Id_Oferta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkImagesSol">
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="1" />
+          <End Role="images_solicitud" Type="Self.images_solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitudes">
+              <PropertyRef Name="idSolicitud" />
+            </Principal>
+            <Dependent Role="images_solicitud">
+              <PropertyRef Name="idSol_Img_Sol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="f_idOfeUn">
           <End Role="ofertas" Type="Self.ofertas" Multiplicity="1" />
           <End Role="un_catele_ofe" Type="Self.un_catele_ofe" Multiplicity="*" />
@@ -313,37 +404,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idUsuario_Ofertas">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
-          <End Role="ofertas" Type="Self.ofertas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuarios">
-              <PropertyRef Name="idUsuarios" />
-            </Principal>
-            <Dependent Role="ofertas">
-              <PropertyRef Name="IdUsuarioOferta" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="IdUsuario_Solicitud">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
-          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuarios">
-              <PropertyRef Name="idUsuarios" />
-            </Principal>
-            <Dependent Role="solicitudes">
-              <PropertyRef Name="idUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="kukulkanEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="cat_estadosol" EntityType="Self.cat_estadosol" />
           <EntitySet Name="categoriaelemento" EntityType="Self.categoriaelemento" />
+          <EntitySet Name="estadouser" EntityType="Self.estadouser" />
+          <EntitySet Name="images_ofertas" EntityType="Self.images_ofertas" />
+          <EntitySet Name="images_solicitud" EntityType="Self.images_solicitud" />
           <EntitySet Name="ofertas" EntityType="Self.ofertas" />
           <EntitySet Name="solicitudes" EntityType="Self.solicitudes" />
+          <EntitySet Name="tiposusuario" EntityType="Self.tiposusuario" />
           <EntitySet Name="un_catele_ofe" EntityType="Self.un_catele_ofe" />
-          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
           <AssociationSet Name="EstadoSol_Solicitud" Association="Self.EstadoSol_Solicitud">
             <End Role="cat_estadosol" EntitySet="cat_estadosol" />
             <End Role="solicitudes" EntitySet="solicitudes" />
@@ -352,56 +422,52 @@
             <End Role="categoriaelemento" EntitySet="categoriaelemento" />
             <End Role="un_catele_ofe" EntitySet="un_catele_ofe" />
           </AssociationSet>
+          <AssociationSet Name="fkImgOfer" Association="Self.fkImgOfer">
+            <End Role="ofertas" EntitySet="ofertas" />
+            <End Role="images_ofertas" EntitySet="images_ofertas" />
+          </AssociationSet>
+          <AssociationSet Name="fkImagesSol" Association="Self.fkImagesSol">
+            <End Role="solicitudes" EntitySet="solicitudes" />
+            <End Role="images_solicitud" EntitySet="images_solicitud" />
+          </AssociationSet>
           <AssociationSet Name="f_idOfeUn" Association="Self.f_idOfeUn">
             <End Role="ofertas" EntitySet="ofertas" />
             <End Role="un_catele_ofe" EntitySet="un_catele_ofe" />
           </AssociationSet>
-          <AssociationSet Name="idUsuario_Ofertas" Association="Self.idUsuario_Ofertas">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="ofertas" EntitySet="ofertas" />
-          </AssociationSet>
-          <AssociationSet Name="IdUsuario_Solicitud" Association="Self.IdUsuario_Solicitud">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="solicitudes" EntitySet="solicitudes" />
-          </AssociationSet>
-          <EntitySet Name="tiposusuario" EntityType="kukulkanModel.tiposusuario" />
-          <AssociationSet Name="tipoUser_User" Association="kukulkanModel.tipoUser_User">
-            <End Role="tiposusuario" EntitySet="tiposusuario" />
-            <End Role="usuarios" EntitySet="usuarios" />
-          </AssociationSet>
-          <EntitySet Name="estadouser" EntityType="kukulkanModel.estadouser" />
+          <EntitySet Name="usuarios" EntityType="kukulkanModel.usuarios" />
           <AssociationSet Name="EstadoUser_Estado" Association="kukulkanModel.EstadoUser_Estado">
             <End Role="estadouser" EntitySet="estadouser" />
             <End Role="usuarios" EntitySet="usuarios" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="tiposusuario">
+          <AssociationSet Name="idUsuario_Ofertas" Association="kukulkanModel.idUsuario_Ofertas">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ofertas" EntitySet="ofertas" />
+          </AssociationSet>
+          <AssociationSet Name="IdUsuario_Solicitud" Association="kukulkanModel.IdUsuario_Solicitud">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="solicitudes" EntitySet="solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="tipoUser_User" Association="kukulkanModel.tipoUser_User">
+            <End Role="tiposusuario" EntitySet="tiposusuario" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="usuarios">
           <Key>
-            <PropertyRef Name="idTiposUsuario" />
+            <PropertyRef Name="idUsuarios" />
           </Key>
-          <Property Name="idTiposUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DescTiposUsuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.tipoUser_User" FromRole="tiposusuario" ToRole="usuarios" />
-        </EntityType>
-        <Association Name="tipoUser_User">
-          <End Type="kukulkanModel.tiposusuario" Role="tiposusuario" Multiplicity="1" />
-          <End Type="kukulkanModel.usuarios" Role="usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tiposusuario">
-              <PropertyRef Name="idTiposUsuario" />
-            </Principal>
-            <Dependent Role="usuarios">
-              <PropertyRef Name="TipoUserUsuarios" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="estadouser">
-          <Key>
-            <PropertyRef Name="idEstadoUser" />
-          </Key>
-          <Property Name="idEstadoUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NomEstadoUser" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.EstadoUser_Estado" FromRole="estadouser" ToRole="usuarios" />
+          <Property Name="idUsuarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NickUsuarios" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PassUsuarios" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CorreoUsuarios" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TipoUserUsuarios" Type="Int32" Nullable="false" />
+          <Property Name="BackPassUsuarios" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoUsuarios" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="EstadoUsuarios" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="estadouser" Relationship="kukulkanModel.EstadoUser_Estado" FromRole="usuarios" ToRole="estadouser" />
+          <NavigationProperty Name="ofertas" Relationship="kukulkanModel.idUsuario_Ofertas" FromRole="usuarios" ToRole="ofertas" />
+          <NavigationProperty Name="solicitudes" Relationship="kukulkanModel.IdUsuario_Solicitud" FromRole="usuarios" ToRole="solicitudes" />
+          <NavigationProperty Name="tiposusuario" Relationship="kukulkanModel.tipoUser_User" FromRole="usuarios" ToRole="tiposusuario" />
         </EntityType>
         <Association Name="EstadoUser_Estado">
           <End Type="kukulkanModel.estadouser" Role="estadouser" Multiplicity="1" />
@@ -412,6 +478,42 @@
             </Principal>
             <Dependent Role="usuarios">
               <PropertyRef Name="EstadoUsuarios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idUsuario_Ofertas">
+          <End Type="kukulkanModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="kukulkanModel.ofertas" Role="ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuarios" />
+            </Principal>
+            <Dependent Role="ofertas">
+              <PropertyRef Name="IdUsuarioOferta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdUsuario_Solicitud">
+          <End Type="kukulkanModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="kukulkanModel.solicitudes" Role="solicitudes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuarios" />
+            </Principal>
+            <Dependent Role="solicitudes">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tipoUser_User">
+          <End Type="kukulkanModel.tiposusuario" Role="tiposusuario" Multiplicity="1" />
+          <End Type="kukulkanModel.usuarios" Role="usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposusuario">
+              <PropertyRef Name="idTiposUsuario" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="TipoUserUsuarios" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -438,6 +540,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="estadouser">
+            <EntityTypeMapping TypeName="kukulkanModel.estadouser">
+              <MappingFragment StoreEntitySet="estadouser">
+                <ScalarProperty Name="idEstadoUser" ColumnName="idEstadoUser" />
+                <ScalarProperty Name="NomEstadoUser" ColumnName="NomEstadoUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="images_ofertas">
+            <EntityTypeMapping TypeName="kukulkanModel.images_ofertas">
+              <MappingFragment StoreEntitySet="images_ofertas">
+                <ScalarProperty Name="IdImages_Ofertas" ColumnName="IdImages_Ofertas" />
+                <ScalarProperty Name="Id_Oferta" ColumnName="Id_Oferta" />
+                <ScalarProperty Name="ImagenImg_Oft" ColumnName="ImagenImg_Oft" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="images_solicitud">
+            <EntityTypeMapping TypeName="kukulkanModel.images_solicitud">
+              <MappingFragment StoreEntitySet="images_solicitud">
+                <ScalarProperty Name="idImages_Solicitud" ColumnName="idImages_Solicitud" />
+                <ScalarProperty Name="idSol_Img_Sol" ColumnName="idSol_Img_Sol" />
+                <ScalarProperty Name="ImagenImg_Sol" ColumnName="ImagenImg_Sol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ofertas">
             <EntityTypeMapping TypeName="kukulkanModel.ofertas">
               <MappingFragment StoreEntitySet="ofertas">
@@ -459,8 +587,15 @@
                 <ScalarProperty Name="TituloSolicitud" ColumnName="TituloSolicitud" />
                 <ScalarProperty Name="EstadoSolicitud" ColumnName="EstadoSolicitud" />
                 <ScalarProperty Name="DescripcionSolicitud" ColumnName="DescripcionSolicitud" />
-                <ScalarProperty Name="ImagenSolicitud" ColumnName="ImagenSolicitud" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiposusuario">
+            <EntityTypeMapping TypeName="kukulkanModel.tiposusuario">
+              <MappingFragment StoreEntitySet="tiposusuario">
+                <ScalarProperty Name="idTiposUsuario" ColumnName="idTiposUsuario" />
+                <ScalarProperty Name="DescTiposUsuario" ColumnName="DescTiposUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -476,30 +611,14 @@
           <EntitySetMapping Name="usuarios">
             <EntityTypeMapping TypeName="kukulkanModel.usuarios">
               <MappingFragment StoreEntitySet="usuarios">
-                <ScalarProperty Name="idUsuarios" ColumnName="idUsuarios" />
-                <ScalarProperty Name="NickUsuarios" ColumnName="NickUsuarios" />
-                <ScalarProperty Name="PassUsuarios" ColumnName="PassUsuarios" />
-                <ScalarProperty Name="CorreoUsuarios" ColumnName="CorreoUsuarios" />
-                <ScalarProperty Name="TipoUserUsuarios" ColumnName="TipoUserUsuarios" />
-                <ScalarProperty Name="BackPassUsuarios" ColumnName="BackPassUsuarios" />
-                <ScalarProperty Name="TelefonoUsuarios" ColumnName="TelefonoUsuarios" />
                 <ScalarProperty Name="EstadoUsuarios" ColumnName="EstadoUsuarios" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tiposusuario">
-            <EntityTypeMapping TypeName="kukulkanModel.tiposusuario">
-              <MappingFragment StoreEntitySet="tiposusuario">
-                <ScalarProperty Name="DescTiposUsuario" ColumnName="DescTiposUsuario" />
-                <ScalarProperty Name="idTiposUsuario" ColumnName="idTiposUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="estadouser">
-            <EntityTypeMapping TypeName="kukulkanModel.estadouser">
-              <MappingFragment StoreEntitySet="estadouser">
-                <ScalarProperty Name="NomEstadoUser" ColumnName="NomEstadoUser" />
-                <ScalarProperty Name="idEstadoUser" ColumnName="idEstadoUser" />
+                <ScalarProperty Name="TelefonoUsuarios" ColumnName="TelefonoUsuarios" />
+                <ScalarProperty Name="BackPassUsuarios" ColumnName="BackPassUsuarios" />
+                <ScalarProperty Name="TipoUserUsuarios" ColumnName="TipoUserUsuarios" />
+                <ScalarProperty Name="CorreoUsuarios" ColumnName="CorreoUsuarios" />
+                <ScalarProperty Name="PassUsuarios" ColumnName="PassUsuarios" />
+                <ScalarProperty Name="NickUsuarios" ColumnName="NickUsuarios" />
+                <ScalarProperty Name="idUsuarios" ColumnName="idUsuarios" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

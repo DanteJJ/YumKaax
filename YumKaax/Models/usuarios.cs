@@ -30,11 +30,11 @@ namespace YumKaax.Models
         public string TelefonoUsuarios { get; set; }
         public int EstadoUsuarios { get; set; }
     
+        public virtual estadouser estadouser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ofertas> ofertas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<solicitudes> solicitudes { get; set; }
         public virtual tiposusuario tiposusuario { get; set; }
-        public virtual estadouser estadouser { get; set; }
     }
 }

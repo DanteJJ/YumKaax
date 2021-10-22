@@ -2,7 +2,7 @@
 @model SolicitudCLS
 
 @{
-    ViewBag.Title = "CrearSolicitud";
+    ViewBag.Title = "Crear Solicitud";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <h3><span class="fa fa-book"></span> Crear solicitud</h3>
         <br />
-        @using (Html.BeginForm("CrearSolicitud", "Solicitudes", FormMethod.Post, new { @class="form-control", @id="form-solicitudCrear" }))
+        @using (Html.BeginForm("CrearSolicitud", "Solicitudes", FormMethod.Post, new { @class = "form-control", @id = "uploadForm" }))
         {
             <div class="row">
                 <div class="col-6">
@@ -26,10 +26,14 @@
                 </div>
             </div>
             <br />
-            <div class="row">
-                <div class="col-6">
-                    <label>Imagen</label>
-                    @Html.TextBoxFor(m => m.Imagen, new { @class = "form-control", type = "file", accept = ".png, .jpg, .svg", style = "background-color:white;color:black;" })
+
+            <div class="form-field">
+                <p>Selecciona imagenes:</p>
+                <div class="upload-container">
+                    <div class="upload">
+                        <input type="file" name="files" id="file1" />
+                        <img src="@Url.Content("~/Public/images/delete.png")" alt="Quitar." />
+                    </div>
                 </div>
             </div>
             <br />
@@ -37,4 +41,41 @@
         }
     </div>
 </div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script>
 
+     $(document).ready(function () {
+        var currentImage = 1;
+        $("body").on("change", "input[name='files']", function () {
+            var pathToRemoveIcon = "@Url.Content("~/Public/images/delete.png")";
+            currentImage = currentImage + 1;
+            var htmlToAppend = '<div class="upload"><input type="file" name="files" id="file' + currentImage + '" /><img src="' + pathToRemoveIcon + '" alt="Quitar" /></div>';
+            $('.upload-container').append(htmlToAppend);
+        }).on("click", ".upload img", function () {
+            if ($(this).parent().siblings().length > 0) {
+                $(this).parent().remove();
+            }
+        });
+    });
+
+    $("#file1").change(function () {
+        filePreview(this);
+    });
+    $("#file2").change(function () {
+        filePreview(this);
+    });
+
+    function filePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = function (e) {
+                $('#uploadForm + img').remove();
+                $('#uploadForm').after('<img src="' + e.target.result + '" width="450" height="300"/>');
+            }
+        }
+    }
+
+
+</script>
