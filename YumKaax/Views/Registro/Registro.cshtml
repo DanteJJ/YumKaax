@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div id="content">
-    <div class="container-fluid" >
+    <div class="container-fluid ">
         <h3><span class="fa fa-user-circle"></span> Registro de Usuario</h3>
         <br />
         @using (Html.BeginForm("ConfirmarRegistro", "Registro", FormMethod.Post, new { @class = "form-control col-6", @id = "form-Registrar" }))
@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-8">
                     <label>Tipo Usuario: </label>
-                    @Html.DropDownListFor(m => m.TipoUserUsuarios, ViewBag.ListTipo as SelectList, "...", new { @class = "form-control", id = "IdTipoUser", onchange= "limpiar('tipUser')" })
+                    @Html.DropDownListFor(m => m.TipoUserUsuarios, ViewBag.ListTipo as SelectList, "...", new { @class = "form-control", id = "IdTipoUser", onchange = "limpiar('tipUser')" })
                 </div>
                 <label style="color:red; display:none" id="tipUser"></label>
             </div>
@@ -64,6 +64,20 @@
                     @Html.DropDownListFor(m => m.EstadoUsuarios, ViewBag.EdoUser as SelectList, "...", new { @class = "form-control", id = "IdEstadoUsuario", onchange = "limpiar('edoUser')" })
                 </div>
                 <label style="color:red; display:none" id="edoUser"></label>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-8">
+                    <label>Código Postal:  </label>
+                    @Html.TextBoxFor(m => m.CodigoPostal, new { @class = "form-control", id = "CodigoPostal", @oninput = "this.value = this.value.replace(/[^0-9]/g,'')", maxlenth = "5" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-8">
+                    <label>Dirección:  </label>
+                    @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control", id = "Direccion"})
+                </div>
             </div>
             <br />
             <div class="row">
@@ -79,6 +93,8 @@
                     <a class="btn btn-success" onclick="ModalConfirmar()"> Enviar</a>
                 </div>
             </div>
+
+
         }
     </div>
 </div>

@@ -19,7 +19,7 @@
         <AssociationConnector Association="kukulkanModel.fkImgOfer" ManuallyRouted="false" />
         <AssociationConnector Association="kukulkanModel.fkImagesSol" ManuallyRouted="false" />
         <AssociationConnector Association="kukulkanModel.f_idOfeUn" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="kukulkanModel.usuarios" Width="1.5" PointX="3" PointY="2.5" />
+        <EntityTypeShape EntityType="kukulkanModel.usuarios" Width="1.5" PointX="3" PointY="2.375" />
         <AssociationConnector Association="kukulkanModel.EstadoUser_Estado" />
         <AssociationConnector Association="kukulkanModel.idUsuario_Ofertas" />
         <AssociationConnector Association="kukulkanModel.IdUsuario_Solicitud" />

@@ -22,6 +22,7 @@ namespace YumKaax.Controllers
         {
             List<tiposusuario> tiposusuarios = new List<tiposusuario>();
             tiposusuarios = (from tu in db.tiposusuario
+                             where tu.idTiposUsuario != 3
                              select tu).ToList();
             return tiposusuarios;
         }
@@ -52,7 +53,7 @@ namespace YumKaax.Controllers
             usuarioAg.TipoUserUsuarios = Rusuarios.TipoUserUsuarios;
             db.usuarios.Add(usuarioAg);
             db.SaveChanges();
-            return PartialView("Login");
+            return RedirectToAction("Index", "Login");
         }
         public sbyte CheckNick(string nick)
         {

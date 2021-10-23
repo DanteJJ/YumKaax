@@ -264,6 +264,7 @@
     <Content Include="Images\christmas-g86f0e28db_1280.jpg" />
     <Content Include="Images\historic-site-g274fafb5b_1920.jpg" />
     <Content Include="Images\lotus-gbfb048aad_1920.jpg" />
+    <Content Include="Images\yumkaax2.png" />
     <Content Include="Images\yumkaaxLogo.jpg" />
     <Content Include="Models\KukulkanDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

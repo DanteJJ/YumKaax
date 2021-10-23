@@ -19,6 +19,8 @@ namespace YumKaax.Models
         public string BackPassUsuarios { get; set; }
         public string TelefonoUsuarios { get; set; }
         public int EstadoUsuarios { get; set; }
+        public string CodigoPostal { get; set; }
+        public string Direccion { get; set; }
     }
 
     public class LoginCLS

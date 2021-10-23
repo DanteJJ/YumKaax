@@ -93,6 +93,8 @@
           <Property Name="BackPassUsuarios" Type="varchar" MaxLength="45" />
           <Property Name="TelefonoUsuarios" Type="varchar" MaxLength="11" Nullable="false" />
           <Property Name="EstadoUsuarios" Type="int" Nullable="false" />
+          <Property Name="CodigoPostal" Type="varchar" MaxLength="6" />
+          <Property Name="Direccion" Type="varchar" MaxLength="100" />
         </EntityType>
         <Association Name="EstadoSol_Solicitud">
           <End Role="cat_estadosol" Type="Self.cat_estadosol" Multiplicity="1" />
@@ -464,6 +466,8 @@
           <Property Name="BackPassUsuarios" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="TelefonoUsuarios" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
           <Property Name="EstadoUsuarios" Type="Int32" Nullable="false" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="estadouser" Relationship="kukulkanModel.EstadoUser_Estado" FromRole="usuarios" ToRole="estadouser" />
           <NavigationProperty Name="ofertas" Relationship="kukulkanModel.idUsuario_Ofertas" FromRole="usuarios" ToRole="ofertas" />
           <NavigationProperty Name="solicitudes" Relationship="kukulkanModel.IdUsuario_Solicitud" FromRole="usuarios" ToRole="solicitudes" />
@@ -517,7 +521,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -611,6 +615,8 @@
           <EntitySetMapping Name="usuarios">
             <EntityTypeMapping TypeName="kukulkanModel.usuarios">
               <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
                 <ScalarProperty Name="EstadoUsuarios" ColumnName="EstadoUsuarios" />
                 <ScalarProperty Name="TelefonoUsuarios" ColumnName="TelefonoUsuarios" />
                 <ScalarProperty Name="BackPassUsuarios" ColumnName="BackPassUsuarios" />

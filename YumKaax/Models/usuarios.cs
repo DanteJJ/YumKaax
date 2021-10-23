@@ -29,6 +29,8 @@ namespace YumKaax.Models
         public string BackPassUsuarios { get; set; }
         public string TelefonoUsuarios { get; set; }
         public int EstadoUsuarios { get; set; }
+        public string CodigoPostal { get; set; }
+        public string Direccion { get; set; }
     
         public virtual estadouser estadouser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

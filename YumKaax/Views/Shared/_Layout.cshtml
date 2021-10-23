@@ -14,7 +14,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <img src="~/Images/yumkaaxLogo.jpg" height=80/>
+            <img src="~/Images/yumkaax2.png" height="100"/>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,19 +32,30 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Ingresar</button>
+                    @if (Session["IdUsuario"] != null)
+                    {
+                        <a class="btn btn-success" href="@Url.Action("Perfil", "Perfil")"><span class="fa fa-user-circle"></span> &nbsp; Mi Perfil </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-success" href="@Url.Action("Registro", "Registro")" style="margin-right:4px;">Registrate</a>
+                        <a class="btn btn-outline-success" href="@Url.Action("Index", "Login")">Ingresar</a>
+                    }
+
                 </form>
             </div>
         </div>
     </nav>
+
     <div class="container body-content">
         <div class="w-100">
             <br />
         </div>
         @RenderBody()
         <hr />
+        <div id="div2">
 
+        </div>
     </div>
     <footer class="mt-auto footer-bl">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3 list-footer">
@@ -63,5 +74,6 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
+
 </body>
 </html>
