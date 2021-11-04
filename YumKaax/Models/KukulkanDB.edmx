@@ -66,6 +66,21 @@
           <Property Name="DescripcionSolicitud" Type="varchar" MaxLength="200" />
           <Property Name="idUsuario" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tipoplanta_solicitud">
+          <Key>
+            <PropertyRef Name="IdTipoPlanta_Solicitud" />
+          </Key>
+          <Property Name="IdTipoPlanta_Solicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdtipoPlanta" Type="int" />
+          <Property Name="IdSolicitud" Type="int" />
+        </EntityType>
+        <EntityType Name="tipoplantas">
+          <Key>
+            <PropertyRef Name="idTipoPlantas" />
+          </Key>
+          <Property Name="idTipoPlantas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionTipoPlantas" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
         <EntityType Name="tiposusuario">
           <Key>
             <PropertyRef Name="idTiposUsuario" />
@@ -144,6 +159,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fkIdSolicitud">
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="0..1" />
+          <End Role="tipoplanta_solicitud" Type="Self.tipoplanta_solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitudes">
+              <PropertyRef Name="idSolicitud" />
+            </Principal>
+            <Dependent Role="tipoplanta_solicitud">
+              <PropertyRef Name="IdSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fkImagesSol">
           <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="1" />
           <End Role="images_solicitud" Type="Self.images_solicitud" Multiplicity="*" />
@@ -165,6 +192,18 @@
             </Principal>
             <Dependent Role="images_ofertas">
               <PropertyRef Name="Id_Oferta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTipoPlanta">
+          <End Role="tipoplantas" Type="Self.tipoplantas" Multiplicity="0..1" />
+          <End Role="tipoplanta_solicitud" Type="Self.tipoplanta_solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoplantas">
+              <PropertyRef Name="idTipoPlantas" />
+            </Principal>
+            <Dependent Role="tipoplanta_solicitud">
+              <PropertyRef Name="IdtipoPlanta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -212,6 +251,8 @@
           <EntitySet Name="images_solicitud" EntityType="Self.images_solicitud" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="ofertas" EntityType="Self.ofertas" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="solicitudes" EntityType="Self.solicitudes" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="tipoplanta_solicitud" EntityType="Self.tipoplanta_solicitud" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="tipoplantas" EntityType="Self.tipoplantas" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="tiposusuario" EntityType="Self.tiposusuario" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="un_catele_ofe" EntityType="Self.un_catele_ofe" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="kukulkan" store:Type="Tables" />
@@ -231,6 +272,10 @@
             <End Role="ofertas" EntitySet="ofertas" />
             <End Role="un_catele_ofe" EntitySet="un_catele_ofe" />
           </AssociationSet>
+          <AssociationSet Name="fkIdSolicitud" Association="Self.fkIdSolicitud">
+            <End Role="solicitudes" EntitySet="solicitudes" />
+            <End Role="tipoplanta_solicitud" EntitySet="tipoplanta_solicitud" />
+          </AssociationSet>
           <AssociationSet Name="fkImagesSol" Association="Self.fkImagesSol">
             <End Role="solicitudes" EntitySet="solicitudes" />
             <End Role="images_solicitud" EntitySet="images_solicitud" />
@@ -238,6 +283,10 @@
           <AssociationSet Name="fkImgOfer" Association="Self.fkImgOfer">
             <End Role="ofertas" EntitySet="ofertas" />
             <End Role="images_ofertas" EntitySet="images_ofertas" />
+          </AssociationSet>
+          <AssociationSet Name="fkTipoPlanta" Association="Self.fkTipoPlanta">
+            <End Role="tipoplantas" EntitySet="tipoplantas" />
+            <End Role="tipoplanta_solicitud" EntitySet="tipoplanta_solicitud" />
           </AssociationSet>
           <AssociationSet Name="idUsuario_Ofertas" Association="Self.idUsuario_Ofertas">
             <End Role="usuarios" EntitySet="usuarios" />
@@ -327,6 +376,7 @@
           <NavigationProperty Name="cat_estadosol" Relationship="Self.EstadoSol_Solicitud" FromRole="solicitudes" ToRole="cat_estadosol" />
           <NavigationProperty Name="images_solicitud" Relationship="Self.fkImagesSol" FromRole="solicitudes" ToRole="images_solicitud" />
           <NavigationProperty Name="usuarios" Relationship="kukulkanModel.IdUsuario_Solicitud" FromRole="solicitudes" ToRole="usuarios" />
+          <NavigationProperty Name="tipoplanta_solicitud" Relationship="kukulkanModel.fkIdSolicitud" FromRole="solicitudes" ToRole="tipoplanta_solicitud" />
         </EntityType>
         <EntityType Name="tiposusuario">
           <Key>
@@ -453,6 +503,16 @@
             <End Role="tiposusuario" EntitySet="tiposusuario" />
             <End Role="usuarios" EntitySet="usuarios" />
           </AssociationSet>
+          <EntitySet Name="tipoplanta_solicitud" EntityType="kukulkanModel.tipoplanta_solicitud" />
+          <EntitySet Name="tipoplantas" EntityType="kukulkanModel.tipoplantas" />
+          <AssociationSet Name="fkIdSolicitud" Association="kukulkanModel.fkIdSolicitud">
+            <End Role="solicitudes" EntitySet="solicitudes" />
+            <End Role="tipoplanta_solicitud" EntitySet="tipoplanta_solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="fkTipoPlanta" Association="kukulkanModel.fkTipoPlanta">
+            <End Role="tipoplantas" EntitySet="tipoplantas" />
+            <End Role="tipoplanta_solicitud" EntitySet="tipoplanta_solicitud" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="usuarios">
           <Key>
@@ -518,6 +578,48 @@
             </Principal>
             <Dependent Role="usuarios">
               <PropertyRef Name="TipoUserUsuarios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tipoplanta_solicitud">
+          <Key>
+            <PropertyRef Name="IdTipoPlanta_Solicitud" />
+          </Key>
+          <Property Name="IdTipoPlanta_Solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdtipoPlanta" Type="Int32" />
+          <Property Name="IdSolicitud" Type="Int32" />
+          <NavigationProperty Name="solicitudes" Relationship="kukulkanModel.fkIdSolicitud" FromRole="tipoplanta_solicitud" ToRole="solicitudes" />
+          <NavigationProperty Name="tipoplantas" Relationship="kukulkanModel.fkTipoPlanta" FromRole="tipoplanta_solicitud" ToRole="tipoplantas" />
+        </EntityType>
+        <EntityType Name="tipoplantas">
+          <Key>
+            <PropertyRef Name="idTipoPlantas" />
+          </Key>
+          <Property Name="idTipoPlantas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionTipoPlantas" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tipoplanta_solicitud" Relationship="kukulkanModel.fkTipoPlanta" FromRole="tipoplantas" ToRole="tipoplanta_solicitud" />
+        </EntityType>
+        <Association Name="fkIdSolicitud">
+          <End Type="kukulkanModel.solicitudes" Role="solicitudes" Multiplicity="0..1" />
+          <End Type="kukulkanModel.tipoplanta_solicitud" Role="tipoplanta_solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitudes">
+              <PropertyRef Name="idSolicitud" />
+            </Principal>
+            <Dependent Role="tipoplanta_solicitud">
+              <PropertyRef Name="IdSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkTipoPlanta">
+          <End Type="kukulkanModel.tipoplantas" Role="tipoplantas" Multiplicity="0..1" />
+          <End Type="kukulkanModel.tipoplanta_solicitud" Role="tipoplanta_solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoplantas">
+              <PropertyRef Name="idTipoPlantas" />
+            </Principal>
+            <Dependent Role="tipoplanta_solicitud">
+              <PropertyRef Name="IdtipoPlanta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -625,6 +727,23 @@
                 <ScalarProperty Name="PassUsuarios" ColumnName="PassUsuarios" />
                 <ScalarProperty Name="NickUsuarios" ColumnName="NickUsuarios" />
                 <ScalarProperty Name="idUsuarios" ColumnName="idUsuarios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoplanta_solicitud">
+            <EntityTypeMapping TypeName="kukulkanModel.tipoplanta_solicitud">
+              <MappingFragment StoreEntitySet="tipoplanta_solicitud">
+                <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+                <ScalarProperty Name="IdtipoPlanta" ColumnName="IdtipoPlanta" />
+                <ScalarProperty Name="IdTipoPlanta_Solicitud" ColumnName="IdTipoPlanta_Solicitud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoplantas">
+            <EntityTypeMapping TypeName="kukulkanModel.tipoplantas">
+              <MappingFragment StoreEntitySet="tipoplantas">
+                <ScalarProperty Name="DescripcionTipoPlantas" ColumnName="DescripcionTipoPlantas" />
+                <ScalarProperty Name="idTipoPlantas" ColumnName="idTipoPlantas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

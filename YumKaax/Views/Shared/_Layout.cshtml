@@ -12,7 +12,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    @*<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <img src="~/Images/yumkaax2.png" height="100"/>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,9 +45,77 @@
                 </form>
             </div>
         </div>
-    </nav>
+    </nav>*@
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <img src="~/Images/yumkaax2.png" height="100" />
 
-    <div class="container body-content">
+            </div>
+            <i id="btn"><span class="fa fa-bars"></span> </i>
+        </div>
+        <ul class="nav_list">
+            <li>
+                <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Home")"><span class="fa fa-dashboard"></span> Inicio</a>
+                <span class="tooltip">Inicio</span>
+            </li>
+            <li>
+                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true"><span class="fa fa-newspaper-o"></span> Crear solicitud</a>
+                <span class="tooltip">Nueva Solicitud</span>
+            </li>
+            <li>
+                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true"><span class="fa fa-newspaper-o"></span> Nueva oferta</a>
+                <span class="tooltip">Ofertar</span>
+            </li>
+            <li>
+                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true">Productos</a>
+                <span class="tooltip">Productos</span>
+            </li>
+            <li>
+                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true">Cerámica</a>
+                <span class="tooltip">Cerámica</span>
+            </li>
+            @if (Session["IdUsuario"] != null)
+            {
+
+                <li>
+                    <a class="btn btn-success" href="@Url.Action("Perfil", "Perfil")"><span class="fa fa-user-circle"></span> &nbsp; Mi Perfil </a>
+                    <span class="tooltip">Mi perfil</span>
+                </li>
+                <li>
+                    <a class="btn btn-success" href="@Url.Action("LogOut", "Login")"><span class="fa fa-sign-out" id=""> Salir</span> </a>
+                    <span class="tooltip">Salir</span>
+                </li>
+            }
+            else
+            {
+        <li>
+            <a class="btn btn-outline-success" href="@Url.Action("Registro", "Registro")" style="margin-right:4px;">Registrate</a>
+            <span class="tooltip">Registrate</span>
+        </li>
+                <li>
+                    <a class="btn btn-outline-success" href="@Url.Action("Index", "Login")">Ingresar</a>
+                    <span class="tooltip">Login</span>
+                </li>
+
+            }
+        </ul>
+        @if (Session["IdUsuario"] != null)
+        {
+    <div class="profile_content">
+        <div class="profile">
+            <div class="profile_details">
+                <div class="name_job">
+                    <div class="name">@Session["NickUsuario"].ToString() </div>
+                    <div class="job"> @Session["TipoUser"].ToString()</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+        }
+    </div>
+    <div class="home_content">
         <div class="w-100">
             <br />
         </div>
@@ -57,7 +125,7 @@
 
         </div>
     </div>
-    <footer class="mt-auto footer-bl">
+    @*<footer class="mt-auto footer-bl">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3 list-footer">
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
@@ -69,7 +137,7 @@
             <p>&copy; @DateTime.Now.Year - By Quetzalcoatl Technologies</p>
         </div>
 
-    </footer>
+    </footer>*@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>

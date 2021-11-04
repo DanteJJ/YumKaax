@@ -32,8 +32,15 @@ namespace YumKaax.Controllers
                 var user = db.usuarios.Where(m => m.NickUsuarios == login.UserName && m.PassUsuarios == passCompare).FirstOrDefault();
                 if (user != null)
                 {
-                    Session["IdUsuario"] = user.idUsuarios.ToString();
+                    var tipoUser = (from tu in db.tiposusuario
+                                    join u in db.usuarios
+                                    on tu.idTiposUsuario equals u.TipoUserUsuarios
+                                    where u.idUsuarios == user.idUsuarios
+                                    select tu.DescTiposUsuario).FirstOrDefault();
 
+                    Session["IdUsuario"] = user.idUsuarios.ToString();
+                    Session["NickUsuario"] = user.NickUsuarios.ToString();
+                    Session["TipoUser"] = tipoUser.ToString();
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -48,6 +55,13 @@ namespace YumKaax.Controllers
             }
             
         }
+
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+         }
 
         public static string GetSHA256(string str)
         {

@@ -35,5 +35,7 @@ namespace YumKaax.Models
         public virtual DbSet<tiposusuario> tiposusuario { get; set; }
         public virtual DbSet<un_catele_ofe> un_catele_ofe { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
+        public virtual DbSet<tipoplanta_solicitud> tipoplanta_solicitud { get; set; }
+        public virtual DbSet<tipoplantas> tipoplantas { get; set; }
     }
 }

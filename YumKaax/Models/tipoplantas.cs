@@ -12,25 +12,17 @@ namespace YumKaax.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class solicitudes
+    public partial class tipoplantas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public solicitudes()
+        public tipoplantas()
         {
-            this.images_solicitud = new HashSet<images_solicitud>();
             this.tipoplanta_solicitud = new HashSet<tipoplanta_solicitud>();
         }
     
-        public int idSolicitud { get; set; }
-        public string TituloSolicitud { get; set; }
-        public int EstadoSolicitud { get; set; }
-        public string DescripcionSolicitud { get; set; }
-        public int idUsuario { get; set; }
+        public int idTipoPlantas { get; set; }
+        public string DescripcionTipoPlantas { get; set; }
     
-        public virtual cat_estadosol cat_estadosol { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<images_solicitud> images_solicitud { get; set; }
-        public virtual usuarios usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tipoplanta_solicitud> tipoplanta_solicitud { get; set; }
     }

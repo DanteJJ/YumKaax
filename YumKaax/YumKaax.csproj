@@ -80,6 +80,12 @@
     <Reference Include="MySql.Data.EntityFramework, Version=8.0.27.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.EntityFramework.8.0.27\lib\net452\MySql.Data.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -203,6 +209,7 @@
     <Compile Include="Models\images_solicitud.cs">
       <DependentUpon>KukulkanDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Images_SolicitudCLS.cs" />
     <Compile Include="Models\KukulkanDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -224,6 +231,12 @@
     <Compile Include="Models\OfertasCLS.cs" />
     <Compile Include="Models\SolicitudCLS.cs" />
     <Compile Include="Models\solicitudes.cs">
+      <DependentUpon>KukulkanDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tipoplantas.cs">
+      <DependentUpon>KukulkanDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tipoplanta_solicitud.cs">
       <DependentUpon>KukulkanDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tiposusuario.cs">
@@ -257,6 +270,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
@@ -264,6 +278,7 @@
     <Content Include="Images\christmas-g86f0e28db_1280.jpg" />
     <Content Include="Images\historic-site-g274fafb5b_1920.jpg" />
     <Content Include="Images\lotus-gbfb048aad_1920.jpg" />
+    <Content Include="Images\trash.png" />
     <Content Include="Images\yumkaax2.png" />
     <Content Include="Images\yumkaaxLogo.jpg" />
     <Content Include="Models\KukulkanDB.Context.tt">
