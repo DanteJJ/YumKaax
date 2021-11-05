@@ -52,49 +52,49 @@
                 <img src="~/Images/yumkaax2.png" height="100" />
 
             </div>
-            <i id="btn"><span class="fa fa-bars"></span> </i>
+            <a id="btn"><span class="fa fa-bars"></span> </a>
         </div>
         <ul class="nav_list">
             <li>
-                <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Home")"><span class="fa fa-dashboard"></span> Inicio</a>
+                <a class="nav-link active " aria-current="page" href="@Url.Action("Index", "Home")"><span class="fa fa-dashboard"></span> <span class="links_name">Inicio</span></a>
                 <span class="tooltip">Inicio</span>
             </li>
             <li>
-                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true"><span class="fa fa-newspaper-o"></span> Crear solicitud</a>
-                <span class="tooltip">Nueva Solicitud</span>
+                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true"><span class="fa fa-newspaper-o"></span> <span class="links_name"> Crear solicitud</span></a>
+                <span class="tooltip"data-container="body">Nueva Solicitud</span>
             </li>
             <li>
-                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true"><span class="fa fa-newspaper-o"></span> Nueva oferta</a>
+                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true"><span class="fa fa-newspaper-o"></span> <span class="links_name"> Nueva oferta</span></a>
                 <span class="tooltip">Ofertar</span>
             </li>
             <li>
-                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true">Productos</a>
+                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true"><span class="links_name"> Productos</span></a>
                 <span class="tooltip">Productos</span>
             </li>
             <li>
-                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true">Cerámica</a>
+                <a class="nav-link " href="@Url.Action("CrearSolicitud","Solicitudes")" tabindex="-1" aria-disabled="true"><span class="links_name"> Cerámica</span></a>
                 <span class="tooltip">Cerámica</span>
             </li>
             @if (Session["IdUsuario"] != null)
             {
 
                 <li>
-                    <a class="btn btn-success" href="@Url.Action("Perfil", "Perfil")"><span class="fa fa-user-circle"></span> &nbsp; Mi Perfil </a>
+                    <a class="btn btn-success" href="@Url.Action("Perfil", "Perfil")"><span class="fa fa-user-circle"></span><span class="links_name">  &nbsp; Mi Perfil</span> </a>
                     <span class="tooltip">Mi perfil</span>
                 </li>
                 <li>
-                    <a class="btn btn-success" href="@Url.Action("LogOut", "Login")"><span class="fa fa-sign-out" id=""> Salir</span> </a>
+                    <a class="btn btn-success" href="@Url.Action("LogOut", "Login")"><span class="fa fa-sign-out" id=""><span class="links_name"> Salir</span> </span> </a>
                     <span class="tooltip">Salir</span>
                 </li>
             }
             else
             {
         <li>
-            <a class="btn btn-outline-success" href="@Url.Action("Registro", "Registro")" style="margin-right:4px;">Registrate</a>
+            <a class="btn btn-outline-success" href="@Url.Action("Registro", "Registro")" style="margin-right:4px;"><span class="links_name"> Registrate</span></a>
             <span class="tooltip">Registrate</span>
         </li>
                 <li>
-                    <a class="btn btn-outline-success" href="@Url.Action("Index", "Login")">Ingresar</a>
+                    <a class="btn btn-outline-success" href="@Url.Action("Index", "Login")"><span class="links_name"> Ingresar</span></a>
                     <span class="tooltip">Login</span>
                 </li>
 
@@ -142,6 +142,12 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
-
+    <script>
+        let btn = document.querySelector("#btn");
+        let sidebar = document.querySelector(".sidebar");
+        btn.onclick = function () {
+            sidebar.classList.toggle("active");
+        }
+    </script>
 </body>
 </html>
