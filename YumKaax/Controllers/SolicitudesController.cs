@@ -16,21 +16,27 @@ namespace YumKaax.Controllers
         }
         kukulkanEntities db;
 
-        List<tipoplantas> GetTipoplantas()
+        List<TipoPlantaCLS> GetTipoplantas()
         {
-            List<tipoplantas> tp = new List<tipoplantas>();
+            List<TipoPlantaCLS> tp = new List<TipoPlantaCLS>();
             tp = (from t in db.tipoplantas
-                  select t).ToList();
+                  select new TipoPlantaCLS()
+                  {
+                      IdTipoPlanta = t.idTipoPlantas,
+                      Descripcion = t.DescripcionTipoPlantas,
+                  }).ToList();
             return tp;
         }
         // GET: Solicitudes
         public ActionResult CrearSolicitud()
         {
-            ViewBag.TiposPlantas = new SelectList(GetTipoplantas(), "idTipoPlantas", "DescripcionTipoPlantas");
-            return View();
+            SolicitudCLS sol = new SolicitudCLS();
+            sol.TipoPlanta = new List<TipoPlantaCLS>();
+            sol.TipoPlanta = GetTipoplantas();
+            return View(sol);
         }
         [HttpPost]
-        public ActionResult CrearSolicitud(string titulo, string descripcion, int[] tiposPlantas, HttpPostedFileBase[] file)
+        public ActionResult CrearSolicitud(string titulo, string descripcion, int[] IdTipoPlanta, HttpPostedFileBase[] file)
         {
             string us = Session["IdUsuario"].ToString();
             int usu = Int32.Parse(us);
@@ -44,9 +50,9 @@ namespace YumKaax.Controllers
             solicitudes s = new solicitudes();
             s = (from so in db.solicitudes
                  select so).OrderByDescending(m => m.idSolicitud).FirstOrDefault();
-            if (tiposPlantas != null)
+            if (IdTipoPlanta != null)
             {
-                foreach (var item in tiposPlantas)
+                foreach (var item in IdTipoPlanta)
                 {
                     tipoplanta_solicitud tps = new tipoplanta_solicitud();
                     tps.IdtipoPlanta = item;

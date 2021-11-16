@@ -40,6 +40,22 @@ namespace YumKaax.Controllers
                                            ImagenImg_Sol = isC.ImagenImg_Sol
                                        }).ToList();
                 item.Images_Solicitud_cl = images_SolicitudCLs;
+                
+                List<tipoplanta_solicitud> tps = new List<tipoplanta_solicitud>();
+                tps = (from ts in db.tipoplanta_solicitud
+                       where ts.IdSolicitud == item.idSolicitud
+                       select ts).ToList();
+                item.DescTipoPlanta = new List<TipoPlanta_SolicitudCLS>();
+                foreach (var itemt in tps)
+                {
+                    TipoPlanta_SolicitudCLS ntp = (from d in db.tipoplantas
+                                  where d.idTipoPlantas == itemt.IdtipoPlanta
+                                  select new TipoPlanta_SolicitudCLS() { 
+                                        DescTipoPlanta = d.DescripcionTipoPlantas
+                                  }).FirstOrDefault();
+                    item.DescTipoPlanta.Add(ntp);
+                }
+
             }
             return View(sl);
         }

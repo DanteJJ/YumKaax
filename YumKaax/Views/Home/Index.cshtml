@@ -52,6 +52,10 @@
                 {
                     <label>@item.TituloSolicitud</label>
                     <p>@item.DescripcionSolicitud</p>
+                    foreach (var itemD in item.DescTipoPlanta)
+                    {
+                        <span class="badge bg-success">@itemD.DescTipoPlanta</span>
+                    }
                     foreach (var image in item.Images_Solicitud_cl)
                     {
                         var base64 = Convert.ToBase64String(image.ImagenImg_Sol);

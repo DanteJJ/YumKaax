@@ -13,7 +13,9 @@ namespace YumKaax.Models
         public string DescripcionSolicitud { get; set; }
         public byte[] ImagenSolicitud { get; set; }
         public int IdUsuario { get; set; }
-        public List<int> TipoPlanta { get; set; }
+        public int[] IdTipoPlanta { get; set; }
+        public List<TipoPlanta_SolicitudCLS> DescTipoPlanta { get; set; }
+        public List<TipoPlantaCLS> TipoPlanta { get; set; }
         public List<HttpPostedFileBase> Imagen { get; set; }
         public Cat_EstadoSolCLS Cat_estadosol { get; set; }
         public UsuariosCLS Usuarios { get; set; }
@@ -24,6 +26,13 @@ namespace YumKaax.Models
     {
         public int IdTipoPlanta { get; set; }
         public string Descripcion { get; set; }
+    }
+
+    public class TipoPlanta_SolicitudCLS
+    {
+        public Nullable<int> IdtipoPlanta { get; set; }
+        public Nullable<int> IdSolicitud { get; set; }
+        public string DescTipoPlanta { get; set; }
     }
 
 }
