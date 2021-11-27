@@ -36,11 +36,12 @@ namespace YumKaax.Controllers
                                     join u in db.usuarios
                                     on tu.idTiposUsuario equals u.TipoUserUsuarios
                                     where u.idUsuarios == user.idUsuarios
-                                    select tu.DescTiposUsuario).FirstOrDefault();
+                                    select tu).FirstOrDefault();
 
                     Session["IdUsuario"] = user.idUsuarios.ToString();
                     Session["NickUsuario"] = user.NickUsuarios.ToString();
-                    Session["TipoUser"] = tipoUser.ToString();
+                    Session["TipoUser"] = tipoUser.DescTiposUsuario.ToString();
+                    Session["IdTipoUser"] = tipoUser.idTiposUsuario.ToString();
                     return RedirectToAction("Index", "Home");
                 }
                 else

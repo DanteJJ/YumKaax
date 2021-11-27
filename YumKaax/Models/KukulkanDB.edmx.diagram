@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d6a2c4ff9004451b9de9208d912effa6" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="d6a2c4ff9004451b9de9208d912effa6" Name="Diagram1" ZoomLevel="70">
         <EntityTypeShape EntityType="kukulkanModel.cat_estadosol" Width="1.5" PointX="0.5" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="kukulkanModel.categoriaelemento" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="kukulkanModel.estadouser" Width="1.5" PointX="0.5" PointY="4" IsExpanded="true" />
@@ -28,6 +28,9 @@
         <EntityTypeShape EntityType="kukulkanModel.tipoplantas" Width="1.5" PointX="0.5" PointY="9.25" />
         <AssociationConnector Association="kukulkanModel.fkIdSolicitud" />
         <AssociationConnector Association="kukulkanModel.fkTipoPlanta" />
+        <EntityTypeShape EntityType="kukulkanModel.solicitud_cotizacion" Width="1.5" PointX="5.125" PointY="9.5" />
+        <AssociationConnector Association="kukulkanModel.Cotizacion_solicitud_fk" />
+        <AssociationConnector Association="kukulkanModel.Cotizacion_Usuario_fk" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

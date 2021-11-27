@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div id="content">
-    <div class="container-fluid ">
+    <div class="container-fluid ">,
         <h3><span class="fa fa-user-circle"></span> Registro de Usuario</h3>
         <br />
         @using (Html.BeginForm("ConfirmarRegistro", "Registro", FormMethod.Post, new { @class = "form-control col-6", @id = "form-Registrar" }))
@@ -153,7 +153,6 @@
             form.submit();
         }
     }
-
     function checkNick() {
         var nick = document.getElementById("NickUser").value;
         document.getElementById("LabelMessage").style.display = 'none';
@@ -173,7 +172,6 @@
             }
         });
     }
-
     function limpiar(idLimpiar) {
         document.getElementById("LabelMessage").style.display = 'none';
         document.getElementById("contraUno").style.display = 'none';
@@ -183,7 +181,6 @@
         document.getElementById("edoUser").style.display = 'none';
         document.getElementById("telUser").style.display = 'none';
     }
-
     function ShowPass() {
         var item = document.getElementById("PassUser");
         if (item.type == "password") {

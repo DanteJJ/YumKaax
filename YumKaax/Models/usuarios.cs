@@ -19,6 +19,7 @@ namespace YumKaax.Models
         {
             this.ofertas = new HashSet<ofertas>();
             this.solicitudes = new HashSet<solicitudes>();
+            this.solicitud_cotizacion = new HashSet<solicitud_cotizacion>();
         }
     
         public int idUsuarios { get; set; }
@@ -38,5 +39,7 @@ namespace YumKaax.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<solicitudes> solicitudes { get; set; }
         public virtual tiposusuario tiposusuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<solicitud_cotizacion> solicitud_cotizacion { get; set; }
     }
 }

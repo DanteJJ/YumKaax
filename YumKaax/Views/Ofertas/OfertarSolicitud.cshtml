@@ -1,0 +1,93 @@
+﻿@using YumKaax.Models
+@model SolicitudCLS
+
+@{
+    ViewBag.Title = "OfertarSolicitud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3><span class="fa fa-sellsy"></span> Cotizar la solicitud</h3>
+        <div class="w-100">
+            <br />
+        </div>
+        <label>@Model.TituloSolicitud</label>
+        <p>@Model.DescripcionSolicitud</p>
+
+        @if (Model.Images_Solicitud_cl != null)
+        {
+            foreach (var image in Model.Images_Solicitud_cl)
+            {
+                var base64 = Convert.ToBase64String(image.ImagenImg_Sol);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgSrc" width="150" />
+            }
+        }
+        <br />
+        @foreach (var itemD in Model.DescTipoPlanta)
+        {
+            <span class="badge bg-dark">@itemD.DescTipoPlanta</span>
+        }
+        <div class="w-100">
+            <br />
+        </div>
+        @using (Html.BeginForm("OfertarSolicitud", "Ofertas", FormMethod.Post, new { @class = "form-control", id = "formOfertar", enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.idSolicitud);
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <label>Cotización</label>
+                    <div class="row">
+                        <div class="col-4" style="padding-left:2px;">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                @Html.TextBoxFor(m => m.Cotizacion_Solicitud.Costo_Cotizacion, new { @class = "form-control", @steps = "1", @oninput = "this.value = this.value.replace(/[^0-9]/g,'')" })
+                                <span class="input-group-text">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <br />
+                    </div>
+                    <div class="row">
+                        <label>Comentarios</label>
+                        <div class="col-4" style="padding-left:2px;">
+                            @Html.TextAreaFor(m => m.Cotizacion_Solicitud.Comentarios_cotizacion, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <br />
+                    </div>
+                    <div class="form-field">
+                        <p>Muestra tu producto al comprador </p>
+                        <div class="upload-container">
+                            <div class="upload">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <input class="form-control form-control-sm" id="formFileSm" type="file" name="file" accept="image/gif, image/jpeg, image/png">
+                                    </div>
+                                    <div class="col-2">
+                                        <img src="~/Images/trash.png" height="50" alt="Quitar." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <a class="btn btn-primary" onclick="EnviarCotizacion()"></a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        ConsultaCotizacion();
+    });
+    function EnviarCotizacion() {
+
+    }
+</script>

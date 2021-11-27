@@ -56,6 +56,16 @@
           <Property Name="ExistenciaOfertas" Type="int" Nullable="false" />
           <Property Name="IdUsuarioOferta" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="solicitud_cotizacion">
+          <Key>
+            <PropertyRef Name="idSolicitud_Cotizacion" />
+          </Key>
+          <Property Name="idSolicitud_Cotizacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comentarios_cotizacion" Type="varchar" MaxLength="45" />
+          <Property Name="Costo_Cotizacion" Type="float" />
+          <Property Name="IdSolicitud" Type="int" Nullable="false" />
+          <Property Name="IdUsuarioCotiza" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="solicitudes">
           <Key>
             <PropertyRef Name="idSolicitud" />
@@ -111,6 +121,30 @@
           <Property Name="CodigoPostal" Type="varchar" MaxLength="6" />
           <Property Name="Direccion" Type="varchar" MaxLength="100" />
         </EntityType>
+        <Association Name="Cotizacion_solicitud_fk">
+          <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="1" />
+          <End Role="solicitud_cotizacion" Type="Self.solicitud_cotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitudes">
+              <PropertyRef Name="idSolicitud" />
+            </Principal>
+            <Dependent Role="solicitud_cotizacion">
+              <PropertyRef Name="IdSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cotizacion_Usuario_fk">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="solicitud_cotizacion" Type="Self.solicitud_cotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuarios" />
+            </Principal>
+            <Dependent Role="solicitud_cotizacion">
+              <PropertyRef Name="IdUsuarioCotiza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="EstadoSol_Solicitud">
           <End Role="cat_estadosol" Type="Self.cat_estadosol" Multiplicity="1" />
           <End Role="solicitudes" Type="Self.solicitudes" Multiplicity="*" />
@@ -250,12 +284,21 @@
           <EntitySet Name="images_ofertas" EntityType="Self.images_ofertas" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="images_solicitud" EntityType="Self.images_solicitud" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="ofertas" EntityType="Self.ofertas" Schema="kukulkan" store:Type="Tables" />
+          <EntitySet Name="solicitud_cotizacion" EntityType="Self.solicitud_cotizacion" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="solicitudes" EntityType="Self.solicitudes" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="tipoplanta_solicitud" EntityType="Self.tipoplanta_solicitud" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="tipoplantas" EntityType="Self.tipoplantas" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="tiposusuario" EntityType="Self.tiposusuario" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="un_catele_ofe" EntityType="Self.un_catele_ofe" Schema="kukulkan" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="kukulkan" store:Type="Tables" />
+          <AssociationSet Name="Cotizacion_solicitud_fk" Association="Self.Cotizacion_solicitud_fk">
+            <End Role="solicitudes" EntitySet="solicitudes" />
+            <End Role="solicitud_cotizacion" EntitySet="solicitud_cotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="Cotizacion_Usuario_fk" Association="Self.Cotizacion_Usuario_fk">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="solicitud_cotizacion" EntitySet="solicitud_cotizacion" />
+          </AssociationSet>
           <AssociationSet Name="EstadoSol_Solicitud" Association="Self.EstadoSol_Solicitud">
             <End Role="cat_estadosol" EntitySet="cat_estadosol" />
             <End Role="solicitudes" EntitySet="solicitudes" />
@@ -377,6 +420,7 @@
           <NavigationProperty Name="images_solicitud" Relationship="Self.fkImagesSol" FromRole="solicitudes" ToRole="images_solicitud" />
           <NavigationProperty Name="usuarios" Relationship="kukulkanModel.IdUsuario_Solicitud" FromRole="solicitudes" ToRole="usuarios" />
           <NavigationProperty Name="tipoplanta_solicitud" Relationship="kukulkanModel.fkIdSolicitud" FromRole="solicitudes" ToRole="tipoplanta_solicitud" />
+          <NavigationProperty Name="solicitud_cotizacion" Relationship="kukulkanModel.Cotizacion_solicitud_fk" FromRole="solicitudes" ToRole="solicitud_cotizacion" />
         </EntityType>
         <EntityType Name="tiposusuario">
           <Key>
@@ -513,6 +557,15 @@
             <End Role="tipoplantas" EntitySet="tipoplantas" />
             <End Role="tipoplanta_solicitud" EntitySet="tipoplanta_solicitud" />
           </AssociationSet>
+          <EntitySet Name="solicitud_cotizacion" EntityType="kukulkanModel.solicitud_cotizacion" />
+          <AssociationSet Name="Cotizacion_solicitud_fk" Association="kukulkanModel.Cotizacion_solicitud_fk">
+            <End Role="solicitudes" EntitySet="solicitudes" />
+            <End Role="solicitud_cotizacion" EntitySet="solicitud_cotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="Cotizacion_Usuario_fk" Association="kukulkanModel.Cotizacion_Usuario_fk">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="solicitud_cotizacion" EntitySet="solicitud_cotizacion" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="usuarios">
           <Key>
@@ -532,6 +585,7 @@
           <NavigationProperty Name="ofertas" Relationship="kukulkanModel.idUsuario_Ofertas" FromRole="usuarios" ToRole="ofertas" />
           <NavigationProperty Name="solicitudes" Relationship="kukulkanModel.IdUsuario_Solicitud" FromRole="usuarios" ToRole="solicitudes" />
           <NavigationProperty Name="tiposusuario" Relationship="kukulkanModel.tipoUser_User" FromRole="usuarios" ToRole="tiposusuario" />
+          <NavigationProperty Name="solicitud_cotizacion" Relationship="kukulkanModel.Cotizacion_Usuario_fk" FromRole="usuarios" ToRole="solicitud_cotizacion" />
         </EntityType>
         <Association Name="EstadoUser_Estado">
           <End Type="kukulkanModel.estadouser" Role="estadouser" Multiplicity="1" />
@@ -620,6 +674,42 @@
             </Principal>
             <Dependent Role="tipoplanta_solicitud">
               <PropertyRef Name="IdtipoPlanta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="solicitud_cotizacion">
+          <Key>
+            <PropertyRef Name="idSolicitud_Cotizacion" />
+          </Key>
+          <Property Name="idSolicitud_Cotizacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comentarios_cotizacion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Costo_Cotizacion" Type="Single" />
+          <Property Name="IdSolicitud" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="solicitudes" Relationship="kukulkanModel.Cotizacion_solicitud_fk" FromRole="solicitud_cotizacion" ToRole="solicitudes" />
+          <Property Name="IdUsuarioCotiza" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuarios" Relationship="kukulkanModel.Cotizacion_Usuario_fk" FromRole="solicitud_cotizacion" ToRole="usuarios" />
+        </EntityType>
+        <Association Name="Cotizacion_solicitud_fk">
+          <End Type="kukulkanModel.solicitudes" Role="solicitudes" Multiplicity="1" />
+          <End Type="kukulkanModel.solicitud_cotizacion" Role="solicitud_cotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="solicitudes">
+              <PropertyRef Name="idSolicitud" />
+            </Principal>
+            <Dependent Role="solicitud_cotizacion">
+              <PropertyRef Name="IdSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cotizacion_Usuario_fk">
+          <End Type="kukulkanModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="kukulkanModel.solicitud_cotizacion" Role="solicitud_cotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuarios" />
+            </Principal>
+            <Dependent Role="solicitud_cotizacion">
+              <PropertyRef Name="IdUsuarioCotiza" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -744,6 +834,17 @@
               <MappingFragment StoreEntitySet="tipoplantas">
                 <ScalarProperty Name="DescripcionTipoPlantas" ColumnName="DescripcionTipoPlantas" />
                 <ScalarProperty Name="idTipoPlantas" ColumnName="idTipoPlantas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="solicitud_cotizacion">
+            <EntityTypeMapping TypeName="kukulkanModel.solicitud_cotizacion">
+              <MappingFragment StoreEntitySet="solicitud_cotizacion">
+                <ScalarProperty Name="IdUsuarioCotiza" ColumnName="IdUsuarioCotiza" />
+                <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+                <ScalarProperty Name="Costo_Cotizacion" ColumnName="Costo_Cotizacion" />
+                <ScalarProperty Name="Comentarios_cotizacion" ColumnName="Comentarios_cotizacion" />
+                <ScalarProperty Name="idSolicitud_Cotizacion" ColumnName="idSolicitud_Cotizacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

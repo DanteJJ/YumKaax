@@ -19,6 +19,7 @@ namespace YumKaax.Models
         {
             this.images_solicitud = new HashSet<images_solicitud>();
             this.tipoplanta_solicitud = new HashSet<tipoplanta_solicitud>();
+            this.solicitud_cotizacion = new HashSet<solicitud_cotizacion>();
         }
     
         public int idSolicitud { get; set; }
@@ -33,5 +34,7 @@ namespace YumKaax.Models
         public virtual usuarios usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tipoplanta_solicitud> tipoplanta_solicitud { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<solicitud_cotizacion> solicitud_cotizacion { get; set; }
     }
 }

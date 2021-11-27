@@ -187,6 +187,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\SolicitudesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -231,6 +232,9 @@
     <Compile Include="Models\OfertasCLS.cs" />
     <Compile Include="Models\SolicitudCLS.cs" />
     <Compile Include="Models\solicitudes.cs">
+      <DependentUpon>KukulkanDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\solicitud_cotizacion.cs">
       <DependentUpon>KukulkanDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tipoplantas.cs">
@@ -364,12 +368,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Solicitudes\CrearSolicitud.cshtml" />
     <Content Include="Views\Registro\Registro.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Ofertas\OfertarSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

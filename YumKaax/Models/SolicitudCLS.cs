@@ -14,13 +14,14 @@ namespace YumKaax.Models
         public byte[] ImagenSolicitud { get; set; }
         public int IdUsuario { get; set; }
         public int[] IdTipoPlanta { get; set; }
+        public float PrecioCotiza { get; set; }
+        public string Comentarios { get; set; }
         public List<TipoPlanta_SolicitudCLS> DescTipoPlanta { get; set; }
         public List<TipoPlantaCLS> TipoPlanta { get; set; }
-        public List<HttpPostedFileBase> Imagen { get; set; }
         public Cat_EstadoSolCLS Cat_estadosol { get; set; }
         public UsuariosCLS Usuarios { get; set; }
         public List<Images_SolicitudCLS> Images_Solicitud_cl { get; set; }
-        
+        public Cotizacion_SolicitudCLS Cotizacion_Solicitud { get; set; }
     }
     public class TipoPlantaCLS
     {
@@ -35,4 +36,13 @@ namespace YumKaax.Models
         public string DescTipoPlanta { get; set; }
     }
 
+    public class Cotizacion_SolicitudCLS
+    {
+        public int idSolicitud_Cotizacion { get; set; }
+        public string Comentarios_cotizacion { get; set; }
+        public float Costo_Cotizacion { get; set; }
+        public int IdSolicitud { get; set; }
+        public int IdUsuarioCotiza { get; set; }
+
+    }
 }

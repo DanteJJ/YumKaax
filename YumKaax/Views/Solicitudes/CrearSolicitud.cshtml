@@ -35,7 +35,7 @@
             </div>
             <br />
             <div class="form-field">
-                <p>Selecciona imagenes:</p>
+                <p>Selecciona imágenes similares a tu búsqueda:</p>
                 <div class="upload-container">
                     <div class="upload">
                         <input type="file" name="file" id="file1" accept="image/gif, image/jpeg, image/png" />
@@ -71,11 +71,9 @@
                 }
             });
         });
-
         $("#file1").change(function () {
             filePreview(this);
         });
-
         function filePreview(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

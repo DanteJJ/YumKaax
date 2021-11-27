@@ -52,15 +52,30 @@
                 {
                     <label>@item.TituloSolicitud</label>
                     <p>@item.DescripcionSolicitud</p>
+
+                    if (item.Images_Solicitud_cl != null)
+                    {
+                        foreach (var image in item.Images_Solicitud_cl)
+                        {
+                            var base64 = Convert.ToBase64String(image.ImagenImg_Sol);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            <img src="@imgSrc" width="150" />
+                        }
+                    }
+                    <br />
                     foreach (var itemD in item.DescTipoPlanta)
                     {
-                        <span class="badge bg-success">@itemD.DescTipoPlanta</span>
+                        <span class="badge bg-dark">@itemD.DescTipoPlanta</span>
                     }
-                    foreach (var image in item.Images_Solicitud_cl)
+                    <br />
+                    <br />
+                    if (Session["IdUsuario"] != null)
                     {
-                        var base64 = Convert.ToBase64String(image.ImagenImg_Sol);
-                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        <img src="@imgSrc" width="150" />
+                        if (Session["IdTipoUser"].ToString() == "2" || Session["IdTipoUser"].ToString() == "3")
+                        {
+                            <a class="btn btn-success" href="@Url.Action("OfertarSolicitud", "Ofertas", new { idSolicitud = @item.idSolicitud})"><span class="fa fa-dollar"></span> Ofertar</a>
+                        }
+
                     }
                 }
                 <br />
